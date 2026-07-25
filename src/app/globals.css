@@ -1,0 +1,187 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg: #0b0a09;
+  --bg-darker: #080706;
+  --bg-warm: #0d0a08;
+  --chaos: #55524c;
+  --pen: #e8d5a3;
+  --clarity: #d8d2c4;
+  --human: #f5f0e8;
+  --warn: #ff6b6b;
+  --admin-bg: #100f0d;
+
+  --ease-settle: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-reveal: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+html {
+  background: var(--bg);
+  scroll-behavior: auto;
+}
+
+body {
+  background: var(--bg);
+  color: var(--human);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+body.pen-cursor-active,
+body.pen-cursor-active a,
+body.pen-cursor-active button,
+body.pen-cursor-active [role='button'] {
+  cursor: none;
+}
+
+::selection {
+  background: rgba(232, 213, 163, 0.25);
+  color: var(--human);
+}
+
+/* ---------- typography breathing ---------- */
+p {
+  line-height: 1.7;
+}
+p + p {
+  margin-top: 1.5em;
+}
+.label {
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* ---------- film grain ---------- */
+.grain-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  pointer-events: none;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 256px 256px;
+}
+
+/* ---------- vignette ---------- */
+.vignette-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 89;
+  pointer-events: none;
+  background: radial-gradient(
+    ellipse at center,
+    transparent 55%,
+    rgba(0, 0, 0, 0.32) 100%
+  );
+}
+
+/* ---------- marquee ---------- */
+@keyframes marquee-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee-scroll 70s linear infinite;
+  will-change: transform;
+}
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track {
+    animation: none;
+  }
+}
+
+/* ---------- loader ---------- */
+@keyframes monogram-pulse {
+  0%,
+  100% {
+    opacity: 0.85;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+.loader-monogram {
+  animation: monogram-pulse 2.2s ease-in-out infinite;
+}
+
+/* ---------- scroll indicator ---------- */
+@keyframes scroll-pulse {
+  0%,
+  100% {
+    transform: scaleY(0.4);
+    opacity: 0.35;
+  }
+  50% {
+    transform: scaleY(1);
+    opacity: 0.9;
+  }
+}
+.scroll-indicator {
+  transform-origin: top center;
+  animation: scroll-pulse 2s var(--ease-settle) infinite;
+}
+
+/* ---------- interactive cards: clickable, whispered ---------- */
+.card-hover {
+  border: 1px solid rgba(85, 82, 76, 0.25);
+  transition:
+    border-color 0.6s var(--ease-settle),
+    background-color 0.6s var(--ease-settle),
+    transform 0.6s var(--ease-settle),
+    box-shadow 0.6s var(--ease-settle);
+}
+.card-hover:hover {
+  border-color: rgba(232, 213, 163, 0.22);
+  background-color: rgba(232, 213, 163, 0.015);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.25);
+}
+@media (hover: none) {
+  .card-hover:active {
+    background-color: rgba(232, 213, 163, 0.06);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .card-hover:hover {
+    transform: none;
+  }
+}
+
+/* touch responsiveness */
+a,
+button,
+[role='button'] {
+  touch-action: manipulation;
+}
+
+/* ---------- reduced motion ---------- */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.2s !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ---------- admin ---------- */
+.admin-input {
+  @apply w-full rounded-md border border-white/10 bg-white/[0.04] px-3 py-2.5 text-sm outline-none transition-colors;
+  color: var(--human);
+}
+.admin-input:focus {
+  border-color: rgba(232, 213, 163, 0.6);
+}
+.admin-label {
+  @apply mb-1.5 block font-mono text-[11px] uppercase tracking-[0.08em] text-white/40;
+}
