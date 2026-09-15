@@ -410,7 +410,7 @@ export const impactDashboard = {
   quality: {
     value: 99.64,
     label: "Quality Score",
-    sub: "At Google velocity",
+    sub: "Consistent across projects",
   },
   speed: [
     { value: "40%", label: "faster deployment (WIKA)" },
@@ -527,7 +527,7 @@ export const sectionCopy = {
   toolsHeading:
     "I found inefficiencies in my own workflow. So I built tools to eliminate them.",
   toolsClosing:
-    "None of these were in my job description. All of them were in my job.",
+    "These tools came from real problems in my own work.",
   apiHeading:
     "API documentation is a user experience problem. Most people treat it as a formatting problem.",
   apiClosing:
