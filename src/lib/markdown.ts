@@ -16,7 +16,7 @@ export function slugifyHeading(text: string): string {
   return text
     .toLowerCase()
     .replace(/<[^>]+>/g, "")
-    .replace(/&[a-z]+;/g, "")
+    .replace(/&(?:[a-z]+|#\d+);/g, "")
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/^-|-$/g, "");
 }
@@ -34,6 +34,19 @@ function addHeadingIds(html: string): string {
       return `<h${level} id="${id}">${inner}</h${level}>`;
     }
   );
+}
+
+/* The outline is plain React text, not HTML, so the entities marked emits
+   have to come back out before they are rendered as characters. */
+function decodeEntities(text: string): string {
+  return text
+    .replace(/&quot;/g, '"')
+    .replace(/&#3[49];/g, "'")
+    .replace(/&apos;/g, "'")
+    .replace(/&lt;/g, "<")
+    .replace(/&gt;/g, ">")
+    .replace(/&nbsp;/g, " ")
+    .replace(/&amp;/g, "&");
 }
 
 export interface RenderedDoc {
@@ -63,7 +76,7 @@ export async function renderSampleDoc(
   while ((m = headingRe.exec(html)) !== null) {
     outline.push({
       id: m[1],
-      text: m[2].replace(/<[^>]+>/g, "").trim(),
+      text: decodeEntities(m[2].replace(/<[^>]+>/g, "")).trim(),
     });
   }
 
