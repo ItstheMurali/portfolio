@@ -1,17 +1,36 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { hasSeenIntro, useIsomorphicLayoutEffect } from "@/lib/intro";
 
 /*
   Loading experience — zero flash of unstyled content.
   Tracks real load progress: fonts + first paint readiness.
+
+  Skipped entirely for a viewer who has already seen the opening in this tab.
 */
 
 export default function Loader({ onDone }: { onDone?: () => void }) {
   const [progress, setProgress] = useState(0);
   const [hidden, setHidden] = useState(false);
+  const [checked, setChecked] = useState(false);
+  const skipRef = useRef(false);
+
+  // Runs before paint, so a returning viewer never sees a loader frame.
+  useIsomorphicLayoutEffect(() => {
+    skipRef.current = hasSeenIntro();
+    if (skipRef.current) {
+      setHidden(true);
+      onDone?.();
+    }
+    setChecked(true);
+    // onDone is stable for the life of the page; re-running would replay.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
+    if (!checked || skipRef.current) return;
+
     let mounted = true;
     let value = 0;
 
@@ -47,7 +66,9 @@ export default function Loader({ onDone }: { onDone?: () => void }) {
       mounted = false;
       clearInterval(finish);
     };
-  }, [onDone]);
+  }, [checked, onDone]);
+
+  if (skipRef.current) return null;
 
   return (
     <div

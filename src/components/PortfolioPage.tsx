@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { hasSeenIntro, useIsomorphicLayoutEffect } from "@/lib/intro";
 import Loader from "@/components/Loader";
 import SmoothScroll from "@/components/SmoothScroll";
 import PenCursor from "@/components/PenCursor";
@@ -40,6 +41,15 @@ export interface PortfolioContent {
 
 export default function PortfolioPage({ content }: { content: PortfolioContent }) {
   const [loaded, setLoaded] = useState(false);
+  /* StormCanvas reads `ambient` once at mount, so the canvas waits one tick
+     for the answer rather than starting a storm it would have to abandon. */
+  const [intro, setIntro] = useState<"pending" | "fresh" | "returning">(
+    "pending"
+  );
+
+  useIsomorphicLayoutEffect(() => {
+    setIntro(hasSeenIntro() ? "returning" : "fresh");
+  }, []);
 
   return (
     <SmoothScroll>
@@ -56,7 +66,9 @@ export default function PortfolioPage({ content }: { content: PortfolioContent }
         style={{ opacity: loaded ? 1 : 0 }}
         aria-hidden="true"
       >
-        <StormCanvas />
+        {intro !== "pending" && (
+          <StormCanvas ambient={intro === "returning"} />
+        )}
       </div>
 
       <main

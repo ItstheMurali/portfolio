@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import SubPageShell from "@/components/SubPageShell";
 import { getTools } from "@/lib/content";
 import { workSlug } from "@/lib/defaultContent";
@@ -80,6 +81,15 @@ export default async function ToolsPage() {
                   {tool.impact}
                 </p>
               </div>
+
+              {tool.case_slug && (
+                <Link
+                  href={`/case/${tool.case_slug}`}
+                  className="mt-7 inline-block font-mono text-xs text-pen/70 underline-offset-4 transition-colors hover:text-pen hover:underline"
+                >
+                  The full case study →
+                </Link>
+              )}
 
               <div className="mt-16 h-px w-full bg-white/5" aria-hidden="true" />
             </section>

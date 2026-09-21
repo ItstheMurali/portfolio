@@ -48,7 +48,27 @@ export default async function CasePage({ params }: Props) {
         <h1 className="mt-3 font-syne text-heading-1 font-bold leading-snug text-human">
           {cs.title}
         </h1>
+
+        {(cs.org || cs.period) && (
+          <p className="mt-3 font-mono text-xs text-human/50">
+            {[cs.org, cs.period].filter(Boolean).join("  ·  ")}
+          </p>
+        )}
+
+        {/* A demonstration piece must never be mistaken for client work. */}
+        {cs.kind === "sample" && (
+          <p className="mt-4 inline-block rounded border border-pen/25 px-3 py-1.5 font-mono text-[10px] text-pen/80">
+            Portfolio demonstration piece, built to show the standard
+          </p>
+        )}
+
         <p className="mt-6 font-mono text-sm text-clarity">{cs.impact}</p>
+
+        {cs.stack && cs.stack.length > 0 && (
+          <p className="mt-4 font-mono text-[11px] leading-relaxed text-human/40">
+            {cs.stack.join("  ·  ")}
+          </p>
+        )}
 
         {/* problem / insight / result */}
         <dl className="mt-14 space-y-8 border-l-2 border-white/10 pl-6">

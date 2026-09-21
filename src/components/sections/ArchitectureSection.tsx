@@ -4,10 +4,12 @@ import { useState } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { Reveal, SectionShell, SectionHeading } from "@/components/shared";
+import { caseDiagrams } from "@/components/sections/caseDiagrams";
 import type { CaseStudy } from "@/lib/defaultContent";
 
-/* Section 3 — The Architecture. Two case studies by default,
-   "View all" reveals the third. Diagrams draw as they enter view. */
+/* Section 3 — The Architecture. Employment case studies, each with its own
+   diagram drawing that project's actual mechanism, sides alternating so the
+   column reads as a sequence. "View all" reveals the rest. */
 
 function DiagramArchitecture() {
   /* chaotic tangle → clean hierarchy */
@@ -211,17 +213,24 @@ function DiagramPipeline() {
   );
 }
 
-const diagrams = {
+/* Legacy generic diagrams, kept as the fallback for a case study added
+   through the admin panel before it has a diagram of its own. */
+const diagrams: Record<string, () => JSX.Element> = {
   architecture: DiagramArchitecture,
   flow: DiagramFlow,
   pipeline: DiagramPipeline,
 };
 
-function CaseCard({ cs }: { cs: CaseStudy }) {
-  const Diagram = diagrams[cs.diagram] ?? DiagramArchitecture;
+function CaseCard({ cs, index }: { cs: CaseStudy; index: number }) {
+  const Diagram =
+    caseDiagrams[cs.diagram] ?? diagrams[cs.diagram] ?? DiagramArchitecture;
+  /* Alternating sides so a column of cards reads as a sequence rather than
+     as the same card repeated with different words in it. */
+  const flipped = index % 2 === 1;
+
   return (
     <div className="grid grid-cols-1 gap-8 lg:grid-cols-2 lg:gap-12">
-      <Reveal className="order-1">
+      <Reveal className={flipped ? "order-1 lg:order-2" : "order-1"}>
         <div
           className="h-[240px] w-full overflow-hidden rounded-lg border border-white/5 p-4 lg:h-[320px]"
           style={{ background: "rgba(255,255,255,0.015)" }}
@@ -229,9 +238,16 @@ function CaseCard({ cs }: { cs: CaseStudy }) {
           <Diagram />
         </div>
       </Reveal>
-      <Reveal delay={0.3} className="order-2">
+      <Reveal delay={0.3} className={flipped ? "order-2 lg:order-1" : "order-2"}>
         <span className="label font-mono text-[10px] text-pen">{cs.domain}</span>
         <h3 className="mt-2 font-syne text-2xl font-bold text-human">{cs.title}</h3>
+
+        {(cs.org || cs.period) && (
+          <p className="mt-2 font-mono text-[11px] text-human/45">
+            {[cs.org, cs.period].filter(Boolean).join("  ·  ")}
+          </p>
+        )}
+
         <dl className="mt-6 space-y-5">
           {(
             [
@@ -249,6 +265,13 @@ function CaseCard({ cs }: { cs: CaseStudy }) {
           ))}
         </dl>
         <p className="mt-6 font-mono text-sm text-clarity">{cs.impact}</p>
+
+        {cs.stack && cs.stack.length > 0 && (
+          <p className="mt-4 font-mono text-[10px] leading-relaxed text-human/35">
+            {cs.stack.join("  ·  ")}
+          </p>
+        )}
+
         <Link
           href={`/case/${cs.slug}`}
           className="label mt-7 inline-block font-mono text-[11px] text-pen/80 transition-colors hover:text-pen"
@@ -268,8 +291,12 @@ export default function ArchitectureSection({
   heading: string;
 }) {
   const [showAll, setShowAll] = useState(false);
-  const featured = cases.filter((c) => c.featured !== false);
-  const extra = cases.filter((c) => c.featured === false);
+  /* Employment history only. The demonstration pieces have their own case
+     studies, reached from the sample they belong to, so they are not mixed
+     in here where a reader would reasonably read them as client work. */
+  const work = cases.filter((c) => (c.kind ?? "work") === "work");
+  const featured = work.filter((c) => c.featured !== false);
+  const extra = work.filter((c) => c.featured === false);
   const visible = showAll ? [...featured, ...extra] : featured;
 
   return (
@@ -278,8 +305,8 @@ export default function ArchitectureSection({
         <SectionHeading>{heading}</SectionHeading>
 
         <div className="flex flex-col gap-20">
-          {visible.map((cs) => (
-            <CaseCard key={cs.slug} cs={cs} />
+          {visible.map((cs, i) => (
+            <CaseCard key={cs.slug} cs={cs} index={i} />
           ))}
         </div>
 

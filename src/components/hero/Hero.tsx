@@ -4,12 +4,20 @@ import { useEffect, useRef, useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import HeroPortrait from "./HeroPortrait";
 import type { Identity } from "@/lib/defaultContent";
+import {
+  hasSeenIntro,
+  markIntroSeen,
+  useIsomorphicLayoutEffect,
+} from "@/lib/intro";
 
 /*
   Scene 0 — The Storm to Clarity.
   Phase 1 (0–4s): storm only. No name. No title.
   Phase 2 (4s+): the pen light traces the name; as it completes,
   the clarity wave fires and the storm settles. Taglines follow.
+
+  A viewer returning from a sub-page in the same tab has already watched
+  this, so the hero opens already settled rather than making them wait again.
 */
 
 const STORM_MS = 4000;
@@ -19,13 +27,34 @@ export default function Hero({ identity }: { identity: Identity }) {
   const reduced = useReducedMotion();
   const [phase, setPhase] = useState<"storm" | "trace" | "settled">("storm");
   const [penProgress, setPenProgress] = useState(0);
+  const [checked, setChecked] = useState(false);
   const nameRef = useRef<HTMLHeadingElement>(null);
+  const returningRef = useRef(false);
+
+  // Before paint: a returning viewer never sees a frame of the storm.
+  useIsomorphicLayoutEffect(() => {
+    returningRef.current = hasSeenIntro();
+    if (returningRef.current) {
+      setPhase("settled");
+      setPenProgress(1);
+    }
+    setChecked(true);
+  }, []);
 
   useEffect(() => {
+    if (!checked) return;
+
+    if (returningRef.current) {
+      // Already settled. Let the nav and the ambient storm know immediately.
+      window.dispatchEvent(new CustomEvent("hero:complete"));
+      return;
+    }
+
     if (reduced) {
       // Reduced motion: skip straight to the settled state with fades only.
       setPhase("settled");
       setPenProgress(1);
+      markIntroSeen();
       window.dispatchEvent(new CustomEvent("hero:wave"));
       window.dispatchEvent(new CustomEvent("hero:complete"));
       return;
@@ -33,28 +62,46 @@ export default function Hero({ identity }: { identity: Identity }) {
 
     const t1 = window.setTimeout(() => setPhase("trace"), STORM_MS);
     return () => window.clearTimeout(t1);
-  }, [reduced]);
+  }, [reduced, checked]);
 
   // Pen trace: progress 0→1 across the name width.
   useEffect(() => {
     if (phase !== "trace") return;
     let raf = 0;
+    let done = false;
     const start = performance.now();
+
+    const settle = () => {
+      if (done) return;
+      done = true;
+      cancelAnimationFrame(raf);
+      window.clearTimeout(guard);
+      setPenProgress(1);
+      setPhase("settled");
+      markIntroSeen();
+      window.dispatchEvent(new CustomEvent("hero:wave"));
+      window.dispatchEvent(new CustomEvent("hero:complete"));
+    };
+
     const step = (now: number) => {
       const p = Math.min(1, (now - start) / TRACE_MS);
       // THE SETTLE easing feel: fast approach, slow settle
       const eased = 1 - Math.pow(1 - p, 3);
       setPenProgress(eased);
-      if (p < 1) {
-        raf = requestAnimationFrame(step);
-      } else {
-        setPhase("settled");
-        window.dispatchEvent(new CustomEvent("hero:wave"));
-        window.dispatchEvent(new CustomEvent("hero:complete"));
-      }
+      if (p < 1) raf = requestAnimationFrame(step);
+      else settle();
     };
+
+    /* A backgrounded or non-compositing tab starves requestAnimationFrame,
+       which would leave the name half-traced and the site behind a loader
+       forever. The timer is the floor: the trace completes either way. */
+    const guard = window.setTimeout(settle, TRACE_MS + 1500);
+
     raf = requestAnimationFrame(step);
-    return () => cancelAnimationFrame(raf);
+    return () => {
+      cancelAnimationFrame(raf);
+      window.clearTimeout(guard);
+    };
   }, [phase]);
 
   const showName = phase !== "storm";
