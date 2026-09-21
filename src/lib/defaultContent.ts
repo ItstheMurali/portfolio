@@ -114,8 +114,8 @@ export const defaultIdentity: Identity = {
 };
 
 export const defaultScaleStats: StatCounter[] = [
-  { value: "250+", label: "Countries documented at Google scale." },
-  { value: "99.64%", label: "Quality score. At Google velocity." },
+  { value: "250+", label: "Countries documented." },
+  { value: "99.64%", label: "Quality score." },
   { value: "5", label: "Tools built. Without being asked." },
 ];
 
@@ -165,7 +165,7 @@ export const defaultCases: CaseStudy[] = [
     title: "Project Setu",
     domain: "Localization Architecture",
     problem:
-      "Localization that translates words but not meaning. Indian regional languages at Google scale.",
+      "Localization that translates words but not meaning. Regional languages across diverse markets.",
     insight:
       "Information architecture for regional audiences is not a translation problem. It is a user empathy problem.",
     result:
@@ -275,7 +275,15 @@ export const defaultWorkCategories: WorkCategory[] = [
     details:
       "An API reference is a contract between the product and every developer who builds on it. My API documentation covers the full surface: endpoint references with parameters and response schemas, authentication and token lifecycle guides, and complete error-state documentation so developers can recover without opening a support ticket.\n\nAt Accenture I owned the WOPA API documentation, covering payment operation endpoints used across merchant billing workflows. At Cyient I wrote the KHEMEIA API developer guides, taking engineers from first key to production integration. In both cases the measure of success was the same: fewer questions asked, faster integrations shipped.",
     impact: "WOPA API documentation (Accenture) · KHEMEIA API developer guides (Cyient)",
-    samples: [],
+    samples: [
+      { title: "README", url: "#" },
+      { title: "OpenAPI", url: "#" },
+      { title: "Errors", url: "#" },
+      { title: "Design decisions", url: "#" },
+      { title: "Redocly", url: "#" },
+      { title: "Reference", url: "#" },
+      { title: "Package", url: "#" },
+    ],
   },
   {
     name: "User Documentation",
@@ -337,7 +345,7 @@ export const defaultWorkCategories: WorkCategory[] = [
     details:
       "Before a single sentence is written, someone has to decide what exists, what it is called, and how a reader moves between the pieces. That is information architecture, and it is the layer of the work I care about most.\n\nOn Billing 2.0 at Google Operations Center I worked on the content architecture serving 250+ country selectors, mapping the shared structure beneath what looked like 250 separate problems. On Project Setu I helped design the localization architecture for Indian regional languages, where the challenge is cultural context, not word-for-word translation. Both projects share one lesson: structure decisions travel further than sentence decisions.",
     impact:
-      "Billing 2.0 (250+ countries) · Project Setu (Indian regional languages at Google scale)",
+      "Billing 2.0 (250+ countries) · Project Setu (regional language localization)",
     samples: [],
   },
   {
