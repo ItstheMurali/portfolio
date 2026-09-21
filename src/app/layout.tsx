@@ -27,6 +27,14 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
+  /* Resolves relative OG and Twitter image paths. Vercel supplies the
+     deployment host; the fallback keeps local builds warning-free. */
+  metadataBase: new URL(
+    process.env.NEXT_PUBLIC_SITE_URL ??
+      (process.env.VERCEL_PROJECT_PRODUCTION_URL
+        ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
+        : "http://localhost:3000")
+  ),
   title:
     "Murali Krishna Kolipaka · Senior Technical Writer · Information Architect · AI Builder",
   description:

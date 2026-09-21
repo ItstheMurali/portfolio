@@ -25,6 +25,17 @@ export default async function WorkPage() {
         <h1 className="mt-3 font-syne text-heading-1 font-bold leading-snug text-human">
           Every document is a decision. Here are some of mine.
         </h1>
+        <p className="mt-5 font-fraunces text-[15px] leading-[1.8] text-human/70">
+          Each category below links to a complete sample rather than an excerpt.
+          They are collected in one place on the{" "}
+          <Link
+            href="/samples"
+            className="text-pen underline decoration-pen/35 underline-offset-4 transition-colors hover:decoration-pen"
+          >
+            samples index
+          </Link>
+          .
+        </p>
 
         {/* bookmark index */}
         <nav
@@ -86,21 +97,35 @@ export default async function WorkPage() {
                     {cat.samples_label ?? "Live public samples"}
                   </span>
                   <ul className="mt-3 space-y-2">
-                    {cat.samples.map((s) => (
-                      <li key={s.url}>
-                        <a
-                          href={s.url}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="group flex items-center gap-2 rounded-md border border-white/5 px-4 py-3 font-fraunces text-sm text-human/80 transition-colors hover:border-pen/40 hover:text-human"
-                        >
-                          <span className="flex-1">{s.title}</span>
-                          <span className="text-pen/60 group-hover:text-pen">
-                            ↗
-                          </span>
-                        </a>
-                      </li>
-                    ))}
+                    {cat.samples.map((s) => {
+                      const internal = s.url.startsWith("/");
+                      const className =
+                        "group flex items-center gap-2 rounded-md border border-white/5 px-4 py-3 font-fraunces text-sm text-human/80 transition-colors hover:border-pen/40 hover:text-human";
+                      return (
+                        <li key={s.url}>
+                          {internal ? (
+                            <Link href={s.url} className={className}>
+                              <span className="flex-1">{s.title}</span>
+                              <span className="text-pen/60 group-hover:text-pen">
+                                →
+                              </span>
+                            </Link>
+                          ) : (
+                            <a
+                              href={s.url}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className={className}
+                            >
+                              <span className="flex-1">{s.title}</span>
+                              <span className="text-pen/60 group-hover:text-pen">
+                                ↗
+                              </span>
+                            </a>
+                          )}
+                        </li>
+                      );
+                    })}
                   </ul>
                 </div>
               )}

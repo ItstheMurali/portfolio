@@ -1,15 +1,20 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 
+/* Hash links scroll within the homepage; a leading slash is a real route. */
 const links = [
   { href: "#work", label: "Work" },
+  { href: "/samples", label: "Samples" },
   { href: "#architecture", label: "Architecture" },
   { href: "#tools", label: "Tools" },
   { href: "#films", label: "Films" },
   { href: "#contact", label: "Contact" },
 ];
+
+const isHash = (href: string) => href.startsWith("#");
 
 interface LenisLike {
   scrollTo: (
@@ -47,7 +52,7 @@ export default function Nav() {
   }, []);
 
   useEffect(() => {
-    const ids = links.map((l) => l.href.slice(1));
+    const ids = links.filter((l) => isHash(l.href)).map((l) => l.href.slice(1));
     const observer = new IntersectionObserver(
       (entries) => {
         for (const e of entries) {
@@ -92,23 +97,30 @@ export default function Nav() {
 
         {/* desktop links */}
         <div className="hidden items-center gap-8 md:flex">
-          {links.map((l) => (
-            <a
-              key={l.href}
-              href={l.href}
-              onClick={(e) => {
-                e.preventDefault();
-                goTo(l.href);
-              }}
-              className={`label font-mono text-[11px] transition-colors ${
-                active === l.href.slice(1)
-                  ? "text-pen underline decoration-pen underline-offset-8"
-                  : "text-human/60 hover:text-human"
-              }`}
-            >
-              {l.label}
-            </a>
-          ))}
+          {links.map((l) => {
+            const className = `label font-mono text-[11px] transition-colors ${
+              isHash(l.href) && active === l.href.slice(1)
+                ? "text-pen underline decoration-pen underline-offset-8"
+                : "text-human/60 hover:text-human"
+            }`;
+            return isHash(l.href) ? (
+              <a
+                key={l.href}
+                href={l.href}
+                onClick={(e) => {
+                  e.preventDefault();
+                  goTo(l.href);
+                }}
+                className={className}
+              >
+                {l.label}
+              </a>
+            ) : (
+              <Link key={l.href} href={l.href} className={className}>
+                {l.label}
+              </Link>
+            );
+          })}
         </div>
 
         {/* mobile hamburger */}
@@ -143,31 +155,42 @@ export default function Nav() {
             >
               ×
             </button>
-            {links.map((l, i) => (
-              <motion.a
-                key={l.href}
-                href={l.href}
-                onClick={(e) => {
-                  e.preventDefault();
-                  setOpen(false);
-                  goTo(l.href);
-                }}
-                initial={{ opacity: 0, y: 16 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{
+            {links.map((l, i) => {
+              const motionProps = {
+                initial: { opacity: 0, y: 16 },
+                animate: { opacity: 1, y: 0 },
+                transition: {
                   delay: 0.08 * i,
                   duration: 0.6,
-                  ease: [0.16, 1, 0.3, 1],
-                }}
-                className={`flex h-16 items-center font-syne text-[32px] font-bold ${
-                  active === l.href.slice(1)
+                  ease: [0.16, 1, 0.3, 1] as const,
+                },
+                className: `flex h-16 items-center font-syne text-[32px] font-bold ${
+                  isHash(l.href) && active === l.href.slice(1)
                     ? "text-pen underline decoration-pen underline-offset-8"
                     : "text-human"
-                }`}
-              >
-                {l.label}
-              </motion.a>
-            ))}
+                }`,
+              };
+              return isHash(l.href) ? (
+                <motion.a
+                  key={l.href}
+                  href={l.href}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setOpen(false);
+                    goTo(l.href);
+                  }}
+                  {...motionProps}
+                >
+                  {l.label}
+                </motion.a>
+              ) : (
+                <motion.div key={l.href} {...motionProps}>
+                  <Link href={l.href} onClick={() => setOpen(false)}>
+                    {l.label}
+                  </Link>
+                </motion.div>
+              );
+            })}
           </motion.div>
         )}
       </AnimatePresence>

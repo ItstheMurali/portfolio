@@ -198,11 +198,91 @@ export const defaultCases: CaseStudy[] = [
     diagram: "flow",
     featured: false,
     full_description:
-      "Translation moves words between languages. Localization moves meaning between cultures. Project Setu (setu: bridge) addressed the gap between the two for Indian regional language audiences at Google scale.\n\nThe starting observation: a technically accurate Hindi or Telugu translation of an English help article can still fail its reader, because the source article assumes payment methods, account patterns, and digital habits that do not match the market. The words arrive; the understanding does not.\n\nThe framework treats regional content as an architecture problem. Source content is structured so that culturally variable elements (examples, payment flows, references) are separated from universal elements, letting regional versions substitute meaning rather than just vocabulary. The result is content that reads as if it were written for the reader, because structurally, it was.",
+      "Translation moves words between languages. Localization moves meaning between cultures. Project Setu (setu: bridge) addressed the gap between the two for Indian regional language audiences.\n\nThe starting observation: a technically accurate Hindi or Telugu translation of an English help article can still fail its reader, because the source article assumes payment methods, account patterns, and digital habits that do not match the market. The words arrive; the understanding does not.\n\nThe framework treats regional content as an architecture problem. Source content is structured so that culturally variable elements (examples, payment flows, references) are separated from universal elements, letting regional versions substitute meaning rather than just vocabulary. The result is content that reads as if it were written for the reader, because structurally, it was.",
     decisions:
       "Treat localization as user empathy work first and linguistic work second, and structure content so both can be done well.\n\nSeparate culturally variable content blocks from universal ones at the architecture level, so regional adaptation is systematic rather than heroic.\n\nValidate with regional readers, not just regional translators; the test is understanding, not accuracy.",
     lessons:
       "Information architecture for regional audiences is not a translation problem. It is a user empathy problem, and empathy scales only when it is built into the structure.",
+  },
+  {
+    slug: "sift-api",
+    title: "Sift API",
+    domain: "Documenting Probabilistic Systems",
+    problem:
+      "An API that returns confidence scores instead of answers, documented as though it returned answers.",
+    insight:
+      "When a system can be confidently wrong, the documentation's job is not to explain the output. It is to stop the reader building on an assumption of correctness.",
+    result:
+      "Tutorial-first documentation that shows a wrong answer in step 3, before the reader has written anything that depends on the right one.",
+    impact: "Three documents, three registers: teaching, reasoning, contract.",
+    diagram: "flow",
+    featured: false,
+    full_description:
+      "Extraction APIs return a value and a number between 0 and 1. Most documentation for them explains the number in a short note near the end, after the reader has already been taught to treat the value as the answer. By then the integration has been designed around the happy path, and the confidence score is a field somebody handles later.\n\nThis set inverts that order. The quickstart sends two documents: a clean invoice that works, and a photographed receipt that comes back with the total misread and status still set to succeeded. The wrong answer is step 3 of the tutorial, not an appendix, because the reader has to meet it while they are still deciding how to build.\n\nThe second document does the work the usual confidence-score table cannot. A table of thresholds tells a reader what a number means; it does not tell them what to do. The explanation replaces the question \"how confident is the model\" with \"what does this field cost when it is wrong\", which is the question that actually produces a routing decision, and it ends with a per-field threshold table an operations team can argue with.",
+    decisions:
+      "Show the failure inside the tutorial rather than in a note. An honest quickstart is slower to read and produces integrations that survive contact with real documents.\n\nGive confidence a definition that can be checked: across a batch of fields scoring 0.80, about 80% are correct. A vague definition invites the reader to substitute their own, and the one they substitute is always more optimistic.\n\nSeparate the three failures that look identical in the response body: a bad document, a wrong extraction, and a wrong request. They arrive as the same low number and they need completely different responses, and a team that cannot tell them apart never improves.",
+    lessons:
+      "Documentation for a probabilistic system has an obligation that documentation for a deterministic one does not: it has to spend the reader's trust carefully. Show the limits early, in the tutorial, while the reader is still deciding how much to rely on the thing. Withholding that until the reference is not neutrality, it is a choice that lands on whoever is paging through at 2am wondering why a total was wrong.",
+  },
+  {
+    slug: "payments-kb",
+    title: "Payments knowledge base",
+    domain: "Help Centre Architecture",
+    problem:
+      "One painful problem, four different questions, and a help centre that answered only the easiest of them.",
+    insight:
+      "Nobody arrives at a help centre through its front door. Every article is a landing page for someone who is already frustrated.",
+    result:
+      "Four structurally bound articles covering orientation, task, reference, and explanation, each written for a different moment in the same bad afternoon.",
+    impact: "Same facts as the API error reference, written in the other register.",
+    diagram: "architecture",
+    featured: false,
+    full_description:
+      "A declined payment generates four distinct questions, and they are not answered well by one article. What do I do now. What does this specific message mean. Why does this keep happening. Where do I even start. Collapsing them into a single page serves the first question adequately and the other three badly.\n\nThe suite separates them along the Diátaxis lines: a hub for orientation, a task article for the person who needs to act, a reference for the person who needs to decode a message, and an explanation for the person whose real problem is a habit rather than a card. Each is complete on its own, because each is somebody's entry point, and each names the one thing to do next.\n\nThe hub was the hardest to get right. A help-centre landing page written as an introduction assumes a reader who started at the top, and almost nobody did. So it opens with a triage table rather than a welcome: pick the thing that is happening to you. The conceptual material that would normally open the page sits below the triage, where it helps the reader who wants it without delaying the one who does not.",
+    decisions:
+      "Write the hub as a signpost rather than an introduction, because a reader who arrived from a search result and a reader who arrived from the navigation need opposite things, and the search reader is almost all of them.\n\nGive the retry article a job: prevent a behaviour. It leads with the consequence, that repeated attempts make the next one more likely to fail, because the mechanism is only persuasive after the reader knows why it matters to them.\n\nState the same decline reasons here and in the developer error reference, and say so in both. One set of facts, two registers. The explicit cross-link is what stops the two from drifting into two different accounts of the same system.",
+    lessons:
+      "The strongest help article is often the one that exists to stop the reader doing something, and it is the hardest to write, because it has to argue rather than instruct. Nobody arrives wanting to be told their instinct is wrong. Leading with the consequence to them rather than with the mechanism is the difference between an article that changes behaviour and one that is skimmed and ignored.",
+  },
+  {
+    slug: "orchestrator-manual",
+    title: "Orchestrator manual",
+    domain: "Structured Authoring",
+    problem:
+      "Software installation documentation with none of the discipline that safety-critical documentation takes for granted.",
+    insight:
+      "What transfers from aerospace is not the schema. It is the habit of writing rules down so a reviewer can check compliance instead of forming an opinion.",
+    result:
+      "A modular manual with a defined advisory hierarchy, eight stated writing rules, and verification built into every task.",
+    impact: "Every task ends with a check and a stated expected result.",
+    diagram: "pipeline",
+    featured: false,
+    full_description:
+      "Aerospace documentation standards carry a discipline most software manuals never adopt: a formal advisory hierarchy with written definitions, controlled vocabulary, one action per step, and a verification step that tells the reader whether the procedure worked. None of that requires the S1000D schema. All of it requires deciding the rules in advance and then holding to them.\n\nThis manual states its rules in the front matter and then obeys them. Eight writing rules, listed so a reviewer can check compliance rather than debate taste. Three advisory levels, each with a definition. Modules that are complete on their own, because a reader who arrives from a search result has not read what came before.\n\nThe part that required the most care was the advisory hierarchy. The aerospace convention reserves WARNING for risk of injury or death, and that definition does not transfer honestly to a server installation. Rather than quietly redefining it and hoping nobody noticed, the manual redefines the levels for this domain and states that it has done so. What is preserved is the property that matters: a WARNING never appears for something merely inconvenient, because a hierarchy whose top level is used loosely teaches readers to skip it.",
+    decisions:
+      "Adopt the discipline of S1000D without claiming the standard. Saying \"informed by\" where the schema is not used is the difference between a credible claim and one that collapses on the first specific question.\n\nPlace every advisory before the step it applies to. An advisory read after the action is a post-mortem, and revision C moved them throughout the manual rather than only where the problem was noticed.\n\nEnd every task with verification and a stated expected result. A procedure the reader cannot confirm is a procedure whose failures surface later, in a different module, as a symptom nobody can trace back.\n\nOrganise troubleshooting by symptom and order the causes by support case volume, not by severity. The reader has an observation, not a diagnosis, and the first cause listed should be the answer more often than the rest combined.",
+    lessons:
+      "Stating your rules is a commitment that makes the work checkable, which is exactly why most documentation avoids it. The moment the front matter says no numbered step contains two actions, every step becomes auditable against that claim, including by a reader who disagrees. That exposure is the point. Rules written down can be enforced, inherited by the next writer, and argued with; rules held as taste leave with the person holding them.",
+  },
+  {
+    slug: "docs-governance",
+    title: "Prose governance system",
+    domain: "Documentation Infrastructure",
+    problem:
+      "Editorial quality that depended on one reviewer's attention, and degraded the moment that attention was elsewhere.",
+    insight:
+      "The hard part of a linting system is not the rules you write. It is the restraint about the rules you do not.",
+    result:
+      "A Vale ruleset and CI pipeline where every rule names the defect it prevents, and the rejected rules are documented alongside.",
+    impact: "3 rules removed, 6 added, on a quarterly review that is actually run.",
+    diagram: "pipeline",
+    featured: false,
+    full_description:
+      "Editorial review does not scale. One editor applying good judgement one document at a time is a bottleneck and a single point of failure, and the quality drops the week they are on leave. Encoding the judgements that can be encoded frees that attention for the ones that cannot.\n\nThe admission criterion for this ruleset is a single sentence: a proposed rule must complete \"without this, a reader will…\". A rule that cannot is a preference, and preferences do not belong in a build gate. Every rule carries its defect in the failure message, so a writer who trips one reads the reason rather than only the correction, and learns the standard instead of learning to satisfy the tool.\n\nSeverity is treated as a real signal rather than a strength of feeling. Errors block the merge and are reserved for defects that mislead a reader; warnings report and do not block. There is no third level, because a tier nobody reads trains writers to skim the output, which is how the blocking lines get skimmed too.",
+    decisions:
+      "Require every rule to name its defect, and reject the ones that cannot. This kills more proposed rules than any other filter, which is the point.\n\nReject passive-voice linting outright. Passive voice is frequently correct in technical writing, and a rule with a high false-positive rate teaches writers to ignore the output, including the parts worth reading.\n\nAnnotate the pull request diff with file and line rather than reporting a count. A CI failure a writer cannot locate is a CI failure they will route around.\n\nReview suppressions quarterly. A cluster of \"vale off\" comments around one rule means the rule has false positives, and the fix is the rule, not the suppressions.",
+    lessons:
+      "A governance system that is never evaluated only accumulates rules. This one tracks failures per rule, suppression clusters, and time to merge on documentation changes, and it has lost three rules to that review. Removing a rule that is not earning its place is the maintenance, not an admission that the original design was wrong. The instinct to keep adding is what turns a useful gate into an obstacle writers learn to work around.",
   },
 ];
 
@@ -299,33 +379,18 @@ export const defaultWorkCategories: WorkCategory[] = [
     details:
       "An API reference is a contract. Every endpoint, every error code, every field is a promise a developer will build against at 2am with no one to ask. I write that contract spec-first: the OpenAPI document is the source of truth, the published reference is generated from it, and the two cannot drift.\n\nAt Accenture I owned the WOPA API documentation for payment operation endpoints across merchant billing workflows. At Cyient I wrote the KHEMEIA API developer guides, taking engineers from first key to production integration. In both cases the measure was the same: fewer questions asked, faster integrations shipped.\n\nBelow is a complete working system I built to demonstrate the standard: the Ledger API, a spec-first billing documentation project with 11 operations, 19 schemas, 3 webhooks, a full error taxonomy, and a governance ruleset of 25 rules that fails the build rather than filing a warning nobody reads.",
     impact: "WOPA API documentation (Accenture) · KHEMEIA API developer guides (Cyient)",
-    samples_label: "Ledger API · the complete system",
+    samples_label: "Two complete systems",
     case_slug: "ledger-api",
     samples: [
       {
-        title: "Ledger API · interactive reference",
-        url: "/samples/ledger-api/reference.html",
+        title:
+          "Ledger API · spec-first reference, governed by a 25-rule CI ruleset",
+        url: "/samples/ledger-api",
       },
       {
-        title: "openapi.yaml · the specification",
-        url: "/samples/ledger-api/openapi.yaml",
-      },
-      {
-        title: "errors.md · error reference",
-        url: "/samples/ledger-api/errors.md",
-      },
-      {
-        title: "DESIGN-DECISIONS.md · 11 decisions, with the rejected alternatives",
-        url: "/samples/ledger-api/design-decisions.md",
-      },
-      {
-        title: "redocly.yaml · the governance ruleset",
-        url: "/samples/ledger-api/redocly.yaml",
-      },
-      { title: "README.md · project overview", url: "/samples/ledger-api/readme.md" },
-      {
-        title: "package.json · the docs-as-code pipeline",
-        url: "/samples/ledger-api/package.json",
+        title:
+          "Sift API · tutorial-first docs for a system that is sometimes wrong",
+        url: "/samples/sift-api",
       },
     ],
   },
@@ -360,8 +425,15 @@ export const defaultWorkCategories: WorkCategory[] = [
     description:
       "Communicating product changes clearly to technical and non-technical audiences simultaneously.",
     details:
-      "Release notes have two readers with opposite needs: the engineer who wants exact technical change detail, and the customer who wants to know what changed for them. I write release notes that serve both in one document: a plain-language summary of what changed and why it matters, followed by precise technical detail for those who need it.\n\nAcross enterprise projects at Cyient and Accenture I owned recurring release communication, turning sprint output and change logs into notes that support teams, product managers, and customers could all act on without translation.",
-    samples: [],
+      "Release notes have two readers with opposite needs: the engineer who wants exact technical change detail, and the customer who wants to know what changed for them. I write release notes that serve both in one document: a plain-language summary of what changed and why it matters, followed by precise technical detail for those who need it.\n\nAcross enterprise projects at Cyient and Accenture I owned recurring release communication, turning sprint output and change logs into notes that support teams, product managers, and customers could all act on without translation.\n\nThe sample below is three consecutive releases of the Ledger API, including one breaking change with a full migration path: who is affected, how to confirm exposure from your own data, how to migrate, and how to verify the fix before pinning to it.",
+    samples_label: "The sample",
+    samples: [
+      {
+        title:
+          "Ledger API release notes · a breaking change, with the migration guide",
+        url: "/samples/ledger-releases",
+      },
+    ],
   },
   {
     name: "Knowledge Base",
@@ -371,7 +443,15 @@ export const defaultWorkCategories: WorkCategory[] = [
       "A knowledge base fails quietly: the answer exists but nobody can find it, so they ask a person instead. I design knowledge bases around findability. Consistent article patterns, titles that match how people actually search, and a structure that surfaces the most-needed answers first.\n\nAt Accenture I established a centralized documentation repository for project knowledge that had previously lived in email threads and individual drives. The measurable result: 30% fewer redundant queries reaching project managers, because the answer was now one search away.",
     impact:
       "Established centralized repository at Accenture: 30% reduction in redundant PM queries",
-    samples: [],
+    samples_label: "The sample suite",
+    case_slug: "payments-kb",
+    samples: [
+      {
+        title:
+          "Payments knowledge base · four linked articles, four different questions",
+        url: "/samples/payments-kb",
+      },
+    ],
   },
   {
     name: "Technical Manuals",
@@ -380,7 +460,15 @@ export const defaultWorkCategories: WorkCategory[] = [
     details:
       "Aerospace maintenance documentation is writing where ambiguity has a failure mode measured in grounded aircraft. At Cyient I produced S1000D and iSpec 2200 compliant maintenance documentation for Airbus and Boeing programs, working in ASD-STE100 Simplified Technical English, where vocabulary and sentence structure are controlled by specification.\n\nEvery data module passed formal compliance validation before release. Working at a 98% compliance rate in this environment taught me the discipline that carries through everything else I write: precision is not a style preference, it is the product.",
     impact: "98% compliance rate",
-    samples: [],
+    samples_label: "The sample",
+    case_slug: "orchestrator-manual",
+    samples: [
+      {
+        title:
+          "Orchestrator manual · advisory hierarchy, stated writing rules, verified tasks",
+        url: "/samples/orchestrator-manual",
+      },
+    ],
   },
   {
     name: "Information Architecture",
@@ -397,10 +485,18 @@ export const defaultWorkCategories: WorkCategory[] = [
     description:
       "Documentation that lives where code lives. Git workflows, CI/CD pipelines, Markdown-first systems.",
     details:
-      "When documentation lives in a separate system from the product, it decays at the speed of that separation. Docs-as-code closes the gap: documentation written in Markdown, versioned in Git, validated in CI, and deployed like software.\n\nFor WIKA I led the migration from an XML-based workflow (manual export, PDF, weeks of turnaround) to a Git + Markdown pipeline with Markdownlint and CSpell validation gates. Content deployment became 40% faster, and every change gained the review history, rollback safety, and automation that engineers already trust for code.",
+      "When documentation lives in a separate system from the product, it decays at the speed of that separation. Docs-as-code closes the gap: documentation written in Markdown, versioned in Git, validated in CI, and deployed like software.\n\nFor WIKA I led the migration from an XML-based workflow (manual export, PDF, weeks of turnaround) to a Git + Markdown pipeline with Markdownlint and CSpell validation gates. Content deployment became 40% faster, and every change gained the review history, rollback safety, and automation that engineers already trust for code.\n\nThe sample below goes further: a prose linting system where every rule names the defect it prevents, and where the rules that were considered and deliberately rejected are documented alongside the ones that shipped.",
     impact:
       "40% faster content deployment. WIKA migration from XML to Git + Markdown pipeline",
-    samples: [],
+    samples_label: "The sample",
+    case_slug: "docs-governance",
+    samples: [
+      {
+        title:
+          "Prose governance · a Vale ruleset where every rule names its defect",
+        url: "/samples/docs-governance",
+      },
+    ],
   },
 ];
 
