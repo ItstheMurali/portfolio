@@ -25,7 +25,6 @@ volume, so the first cause is the answer more often than the rest combined.
 | TLS handshake fails when connecting to the control plane | FI 7.2 |
 | Connection to port 8443 is refused or times out | FI 7.3 |
 | Service is running but reports `database: unreachable` | FI 7.4 |
-| Worker enrols, then returns to `pending` within 5 minutes | FI 7.5 |
 
 ## FI 7.1: Control plane will not start
 

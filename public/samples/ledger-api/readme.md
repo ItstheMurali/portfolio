@@ -16,9 +16,9 @@ Ledger API demonstrates spec-first design for billing and invoicing. It fuses th
 
 | File | Purpose |
 |------|---------|
-| `openapi.yaml` | OpenAPI 3.1.1 specification (11 operations, 19 schemas, 3 webhooks) |
+| `openapi.yaml` | OpenAPI 3.1.1 specification (8 operations, 19 schemas, 3 webhooks) |
 | `redocly.yaml` | Governance ruleset (25 rules: 16 built-in + 9 custom) |
-| `docs/errors.md` | Error reference (7 patterns, one cause + one fix each) |
+| `docs/errors.md` | Error reference (8 codes, one cause + one fix each) |
 | `DESIGN-DECISIONS.md` | 11 design decisions with full rationale |
 | `docs/reference.html` | Interactive API documentation (auto-generated) |
 | `.github/workflows/` | CI/CD: automatic validation on every PR |
@@ -81,11 +81,11 @@ This project:
 
 **Negative Test**: 4 defects deliberately injected. All 4 caught. ✓
 
-### 2. Error Taxonomy (7 Patterns)
+### 2. Error Taxonomy (8 Codes)
 
 | Status | Code | Cause | Fix |
 |--------|------|-------|-----|
-| 400 | `validation_failed` | Missing or invalid field | Correct the request |
+| 422 | `validation_failed` | Missing or invalid field | Correct the request |
 | 401 | `invalid_api_key` | Key is invalid or expired | Use valid key |
 | 403 | `insufficient_scope` | Key lacks permission | Request broader scope |
 | 404 | `resource_not_found` | Invoice doesn't exist (or inaccessible) | Use valid ID |
@@ -112,11 +112,11 @@ All 11 decisions in `DESIGN-DECISIONS.md`.
 ### 4. Completeness
 
 ```
-✓ 11 Operations (invoices, payments, refunds)
+✓ 8 Operations (invoices, payments, refunds)
 ✓ 19 Schemas (Invoice, Money, Problem, etc.)
 ✓ 3 Webhooks (invoice.finalized, invoice.paid, payment.failed)
-✓ 7 Error Patterns (fully documented)
-✓ 4 Authentication Methods (Bearer, API Key with env scopes)
+✓ 8 Error Codes (fully documented)
+✓ 1 Authentication Scheme (bearer secret key, environment-scoped)
 ✓ 25 Governance Rules (all validated)
 ```
 
@@ -350,8 +350,8 @@ See `CONTRIBUTING.md` for:
 
 ## FAQ
 
-**Q: Why is this only 11 endpoints?**  
-A: Depth over volume. 11 endpoints at this standard are more defensible than 40 at half. Governance catches defects code review misses.
+**Q: Why is this only 8 endpoints?**  
+A: Depth over volume. 8 endpoints at this standard are more defensible than 40 at half. Governance catches defects code review misses.
 
 **Q: Why record design decisions?**  
 A: Because "seemed good at the time" is not maintainable. New integrators ask the same questions—DESIGN-DECISIONS.md has the answers.
@@ -378,13 +378,15 @@ MIT. See `LICENSE` file.
 
 ## Author
 
-**Murali Krishna**  
+**Murali Krishna Kolipaka**  
 Senior Technical Writer & Information Architect  
-Google Operations Center, Hyderabad
+Hyderabad, India
 
-- Website: [muralikrishna.me](https://muralikrishna.me)
-- Email: [hello@muralikrishna.me](mailto:hello@muralikrishna.me)
-- GitHub: [@muralikrishna](https://github.com/muralikrishna)
+- Email: [muralikrishna0293@gmail.com](mailto:muralikrishna0293@gmail.com)
+- LinkedIn: [murali-krishna66](https://linkedin.com/in/murali-krishna66)
+
+This is a portfolio demonstration piece. The Ledger API is not a real product,
+and no endpoint described here is live.
 
 ---
 

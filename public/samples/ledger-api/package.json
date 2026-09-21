@@ -5,12 +5,12 @@
   "main": "openapi.yaml",
   "repository": {
     "type": "git",
-    "url": "https://github.com/muralikrishna/ledger-api.git"
+    "url": "https://github.com/ItstheMurali/ledger-api.git"
   },
   "bugs": {
-    "url": "https://github.com/muralikrishna/ledger-api/issues"
+    "url": "https://github.com/ItstheMurali/ledger-api/issues"
   },
-  "homepage": "https://github.com/muralikrishna/ledger-api#readme",
+  "homepage": "https://github.com/ItstheMurali/ledger-api#readme",
   "scripts": {
     "lint": "redocly lint openapi.yaml --config redocly.yaml",
     "lint:strict": "redocly lint openapi.yaml --config redocly.yaml --format json",
@@ -36,9 +36,9 @@
     "api-design"
   ],
   "author": {
-    "name": "Murali Krishna",
-    "email": "hello@muralikrishna.me",
-    "url": "https://muralikrishna.me"
+    "name": "Murali Krishna Kolipaka",
+    "email": "muralikrishna0293@gmail.com",
+    "url": "https://linkedin.com/in/murali-krishna66"
   },
   "license": "MIT",
   "devDependencies": {
