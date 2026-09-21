@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import SubPageShell from "@/components/SubPageShell";
 import { getWorkCategories } from "@/lib/content";
 import { workSlug } from "@/lib/defaultContent";
@@ -82,7 +83,7 @@ export default async function WorkPage() {
               {cat.samples.length > 0 && (
                 <div className="mt-8">
                   <span className="label font-mono text-[10px] text-human/40">
-                    Live public samples
+                    {cat.samples_label ?? "Live public samples"}
                   </span>
                   <ul className="mt-3 space-y-2">
                     {cat.samples.map((s) => (
@@ -102,6 +103,15 @@ export default async function WorkPage() {
                     ))}
                   </ul>
                 </div>
+              )}
+
+              {cat.case_slug && (
+                <Link
+                  href={`/case/${cat.case_slug}`}
+                  className="mt-8 inline-block font-mono text-xs text-pen/70 underline-offset-4 transition-colors hover:text-pen hover:underline"
+                >
+                  Read how it was written →
+                </Link>
               )}
 
               <div className="mt-16 h-px w-full bg-white/5" aria-hidden="true" />

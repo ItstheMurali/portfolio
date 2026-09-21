@@ -80,6 +80,10 @@ export interface WorkCategory {
   details?: string;
   impact?: string;
   samples: WorkSample[];
+  /** Heading above the sample list. Defaults to "Live public samples". */
+  samples_label?: string;
+  /** Slug of a case study to link to at the end of the section. */
+  case_slug?: string;
   visible?: boolean;
   sort_order?: number;
 }
@@ -120,6 +124,26 @@ export const defaultScaleStats: StatCounter[] = [
 ];
 
 export const defaultCases: CaseStudy[] = [
+  {
+    slug: "ledger-api",
+    title: "Ledger API",
+    domain: "Spec-First API Documentation",
+    problem:
+      "API reference that documents the happy path and leaves every failure state to inference.",
+    insight:
+      "The parts developers need most at 2am are the parts documentation habitually omits: what broke, why, and whether it is safe to retry.",
+    result:
+      "A spec-first billing API documentation system with a governance ruleset that fails the build rather than filing a warning nobody reads.",
+    impact: "11 operations · 19 schemas · 25 governance rules · zero drift by construction.",
+    diagram: "pipeline",
+    featured: true,
+    full_description:
+      "Most published API reference is generated from a specification that nobody governs. The happy path is documented, the 200 response has an example, and everything that can go wrong is left for the integrator to discover in production. The Ledger API is a complete working system built to demonstrate the opposite standard: a billing and invoicing API covering invoices, payments, and refunds, documented spec-first, with every failure state named and every design decision recorded.\n\nThe specification is the source of truth. OpenAPI 3.1.1 holds 11 operations, 19 schemas, and 3 webhooks; the published reference, the error taxonomy, and the SDK method names are all derived from it, so the document and the docs cannot drift apart. What makes it enforceable rather than aspirational is redocly.yaml: 25 governance rules, 16 built-in and 9 written for this domain, that run in CI and fail the build. Every rule encodes a defect that has cost a real integration real money somewhere. A float on a money field is blocked at the spec. An operation that does not document its 401, 429, and 500 cannot merge.\n\nThe rules were tested the way tests should be tested: four defects were deliberately injected into a copy of the spec, including a float amount, an undocumented 401, and a non-camelCase operationId. All four were caught. A ruleset that passes silently is worse than no ruleset, because it looks like diligence.\n\nThe error reference is written to one constraint: one cause and one fix per entry. A page that lists six possible causes has moved the diagnosis back onto the reader. It opens with the three things an integrator must internalise before anything else, including the most consequential sentence in the document: a 5xx on a write means unknown, not failed, and retrying with a new idempotency key is how duplicate charges are created.\n\nThe design decisions are recorded in a separate document, 11 of them, each naming the alternative that was rejected and the cost of the choice that won. A decision record that lists only the winner is a press release.",
+    decisions:
+      "A declined payment returns 201, not 402. An HTTP status describes the fate of the request, not the fate of the business operation. Routing declines through 4xx sends them to a generic error handler that cannot tell a declined card from a wrong API key, and into retry middleware that issuers read as an abuse signal.\n\nMoney is an integer in the currency minor unit, inside a Money object that binds amount to currency. Floats drift invisibly on one invoice and materially across a month of reconciliation. Binding the pair in one object stops an amount from travelling without its currency, and the schema documents the zero-decimal and three-decimal currencies explicitly, because minor unit does not mean divide by 100.\n\nA resource owned by another account returns 404, not 403. The literally truthful 403 confirms the identifier is real, which turns a permission check into an enumeration oracle. The ambiguity is deliberate, and it is documented as deliberate, because undocumented defensive behaviour is a support cost while documented defensive behaviour is a feature.\n\nIdempotency conflicts split into two 409 codes rather than one. In-progress means retry shortly; key-reused means stop and fix your code. Collapsing them forces every integrator to guess, and the common guess turns a caller bug into a retry storm.\n\nWebhook verification is documented as four numbered rules rather than one sentence about HMAC. Each of the four omissions, hashing a re-serialized body, comparing in non-constant time, skipping the timestamp tolerance, and not deduplicating on event id, is a live vulnerability or outage. Documentation that describes a mechanism but not its failure modes has transferred information without transferring safety.",
+    lessons:
+      "The first draft of this specification cited the rate-limit response fields as RFC 9773. No such RFC exists; the number was asserted from memory and never checked. It was caught by verifying every normative reference against its source before publication, and the citation was corrected to the Internet-Draft it actually comes from. The mistake is recorded in the decision log rather than quietly fixed, because a plausible-looking wrong citation is the most dangerous class of documentation defect: it survives review precisely because it looks like diligence.",
+  },
   {
     slug: "billing-2",
     title: "Billing 2.0",
@@ -273,16 +297,36 @@ export const defaultWorkCategories: WorkCategory[] = [
     description:
       "Developer-facing API guides, endpoint documentation, authentication schemas, error state documentation. Designed to reduce support queries and accelerate integration.",
     details:
-      "An API reference is a contract between the product and every developer who builds on it. My API documentation covers the full surface: endpoint references with parameters and response schemas, authentication and token lifecycle guides, and complete error-state documentation so developers can recover without opening a support ticket.\n\nAt Accenture I owned the WOPA API documentation, covering payment operation endpoints used across merchant billing workflows. At Cyient I wrote the KHEMEIA API developer guides, taking engineers from first key to production integration. In both cases the measure of success was the same: fewer questions asked, faster integrations shipped.",
+      "An API reference is a contract. Every endpoint, every error code, every field is a promise a developer will build against at 2am with no one to ask. I write that contract spec-first: the OpenAPI document is the source of truth, the published reference is generated from it, and the two cannot drift.\n\nAt Accenture I owned the WOPA API documentation for payment operation endpoints across merchant billing workflows. At Cyient I wrote the KHEMEIA API developer guides, taking engineers from first key to production integration. In both cases the measure was the same: fewer questions asked, faster integrations shipped.\n\nBelow is a complete working system I built to demonstrate the standard: the Ledger API, a spec-first billing documentation project with 11 operations, 19 schemas, 3 webhooks, a full error taxonomy, and a governance ruleset of 25 rules that fails the build rather than filing a warning nobody reads.",
     impact: "WOPA API documentation (Accenture) · KHEMEIA API developer guides (Cyient)",
+    samples_label: "Ledger API · the complete system",
+    case_slug: "ledger-api",
     samples: [
-      { title: "README", url: "#" },
-      { title: "OpenAPI", url: "#" },
-      { title: "Errors", url: "#" },
-      { title: "Design decisions", url: "#" },
-      { title: "Redocly", url: "#" },
-      { title: "Reference", url: "#" },
-      { title: "Package", url: "#" },
+      {
+        title: "Ledger API · interactive reference",
+        url: "/samples/ledger-api/reference.html",
+      },
+      {
+        title: "openapi.yaml · the specification",
+        url: "/samples/ledger-api/openapi.yaml",
+      },
+      {
+        title: "errors.md · error reference",
+        url: "/samples/ledger-api/errors.md",
+      },
+      {
+        title: "DESIGN-DECISIONS.md · 11 decisions, with the rejected alternatives",
+        url: "/samples/ledger-api/design-decisions.md",
+      },
+      {
+        title: "redocly.yaml · the governance ruleset",
+        url: "/samples/ledger-api/redocly.yaml",
+      },
+      { title: "README.md · project overview", url: "/samples/ledger-api/readme.md" },
+      {
+        title: "package.json · the docs-as-code pipeline",
+        url: "/samples/ledger-api/package.json",
+      },
     ],
   },
   {

@@ -103,6 +103,8 @@ create table if not exists work_categories (
   details text default '',
   impact text default '',
   samples jsonb not null default '[]',
+  samples_label text default '',
+  case_slug text default '',
   visible boolean not null default true,
   sort_order integer not null default 0,
   created_at timestamptz not null default now(),

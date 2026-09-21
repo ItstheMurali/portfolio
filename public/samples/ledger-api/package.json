@@ -1,0 +1,52 @@
+{
+  "name": "ledger-api",
+  "version": "2026.09.01",
+  "description": "Spec-first billing API documentation system for invoicing, payments, and refunds",
+  "main": "openapi.yaml",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/muralikrishna/ledger-api.git"
+  },
+  "bugs": {
+    "url": "https://github.com/muralikrishna/ledger-api/issues"
+  },
+  "homepage": "https://github.com/muralikrishna/ledger-api#readme",
+  "scripts": {
+    "lint": "redocly lint openapi.yaml --config redocly.yaml",
+    "lint:strict": "redocly lint openapi.yaml --config redocly.yaml --format json",
+    "build": "redocly build-docs openapi.yaml -o docs/reference.html --config redocly.yaml",
+    "build:docs": "npm run build && echo '✓ Documentation built successfully'",
+    "bundle": "redocly bundle openapi.yaml -o dist/openapi.bundled.yaml",
+    "test": "npm run test:governance && npm run test:references",
+    "test:governance": "npm run lint:strict",
+    "test:references": "node scripts/verify-references.js",
+    "dev": "redocly preview-docs openapi.yaml",
+    "validate": "npm run lint && npm run build && npm run test",
+    "format": "prettier --write 'openapi.yaml' 'docs/**/*.md'",
+    "precommit": "npm run lint && npm run test:references"
+  },
+  "keywords": [
+    "openapi",
+    "api-documentation",
+    "billing",
+    "payments",
+    "invoicing",
+    "spec-first",
+    "governance",
+    "api-design"
+  ],
+  "author": {
+    "name": "Murali Krishna",
+    "email": "hello@muralikrishna.me",
+    "url": "https://muralikrishna.me"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "@redocly/cli": "^2.5.0",
+    "prettier": "^3.0.0"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
+  }
+}

@@ -1,0 +1,148 @@
+# Ledger API — documentation governance ruleset
+#
+# This file is the enforceable half of the style guide. Every rule below
+# encodes a defect that has cost a real integration real money somewhere, and
+# every rule fails the build rather than filing a warning nobody reads.
+#
+# Run: npx redocly lint openapi.yaml
+
+extends:
+  - recommended-strict
+
+rules:
+  # ── Baseline completeness ────────────────────────────────────────────────
+  # Auto-generated reference is only as good as the prose in the spec. An
+  # undescribed parameter becomes an undescribed field on the docs site.
+  operation-operationId: error
+  operation-operationId-unique: error
+  operation-summary: error
+  operation-description: error
+  operation-tag-defined: error
+  tag-description: error
+  parameter-description: error
+  info-contact: error
+  info-license: error
+  no-ambiguous-paths: error
+  no-identical-paths: error
+  path-declaration-must-exist: error
+  path-parameters-defined: error
+  security-defined: error
+  spec-strict-refs: error
+  no-invalid-media-type-examples: error
+  no-invalid-schema-examples: error
+  struct: error
+
+  # ── Naming consistency ───────────────────────────────────────────────────
+  # Consistency is not cosmetic. A client generator turns operationId into a
+  # method name; drift there produces an SDK that reads like three products.
+  rule/operationid-is-camel-case:
+    subject:
+      type: Operation
+      property: operationId
+    assertions:
+      casing: camelCase
+    severity: error
+    message: operationId must be camelCase; it becomes the generated SDK method name.
+
+  rule/schema-names-are-pascal-case:
+    subject:
+      type: NamedSchemas
+    assertions:
+      casing: PascalCase
+    severity: error
+    message: Component schema names must be PascalCase.
+
+  rule/summary-has-no-trailing-period:
+    subject:
+      type: Operation
+      property: summary
+    assertions:
+      notPattern: '\.$'
+    severity: error
+    message: An operation summary is a label, not a sentence; drop the trailing period.
+
+  rule/summary-is-not-a-sentence:
+    subject:
+      type: Operation
+      property: summary
+    assertions:
+      maxLength: 60
+    severity: error
+    message: Keep summaries under 60 characters so navigation does not wrap.
+
+  # ── Error contract ───────────────────────────────────────────────────────
+  # Partial error documentation is the most common defect in published API
+  # reference. These rules make the omission impossible to merge.
+  rule/every-operation-documents-401:
+    subject:
+      type: Responses
+    where:
+      - subject:
+          type: Paths
+        assertions:
+          defined: true
+    assertions:
+      required:
+        - '401'
+    severity: error
+    message: Every operation on an authenticated API must document its 401 response.
+
+  rule/every-operation-documents-429:
+    subject:
+      type: Responses
+    where:
+      - subject:
+          type: Paths
+        assertions:
+          defined: true
+    assertions:
+      required:
+        - '429'
+    severity: error
+    message: Every operation must document its rate-limit response.
+
+  rule/every-operation-documents-500:
+    subject:
+      type: Responses
+    where:
+      - subject:
+          type: Paths
+        assertions:
+          defined: true
+    assertions:
+      required:
+        - '500'
+    severity: error
+    message: >-
+      Every operation must document its 500 response, including whether the
+      write is safe to retry.
+
+  # ── Money safety ─────────────────────────────────────────────────────────
+  # A float amount is a rounding defect that only appears in aggregate, months
+  # after release, in a reconciliation report. Block it at the spec.
+  rule/no-floating-point-money:
+    subject:
+      type: Schema
+      property: type
+      filterInParentKeys:
+        - amount
+        - unit_amount
+        - total
+        - amount_paid
+        - amount_remaining
+        - amount_refunded
+    assertions:
+      notPattern: '^number$'
+    severity: error
+    message: >-
+      Monetary values must be integers in the currency minor unit, never
+      number/float/double.
+
+  # ── Documented-by-default schemas ────────────────────────────────────────
+  rule/named-schemas-have-descriptions:
+    subject:
+      type: NamedSchemas
+    assertions:
+      defined: true
+    severity: error
+    message: Every component schema must exist and be reachable.

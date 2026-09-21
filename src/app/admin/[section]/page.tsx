@@ -145,6 +145,16 @@ const configs: Record<string, Config> = {
         type: "textarea",
       },
       { key: "impact", label: "Impact line", type: "text" },
+      {
+        key: "samples_label",
+        label: "Samples heading (blank = \"Live public samples\")",
+        type: "text",
+      },
+      {
+        key: "case_slug",
+        label: "Linked case study slug (optional, e.g. ledger-api)",
+        type: "text",
+      },
     ],
     newRow: { name: "New category", samples: [] },
   },
