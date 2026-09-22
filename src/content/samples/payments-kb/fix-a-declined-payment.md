@@ -42,7 +42,7 @@ If step 1 did not resolve it, the message tells you what to do next.
 | Card expired | Past the expiry date | Use a current card |
 | Incorrect details | A number, date, or security code is wrong | Re-enter carefully; do not paste |
 | Card declined | Your bank refused without saying why | Go to step 3 |
-| Do not honour | Your bank refused and will not give a reason | Go to step 3 |
+| Do not honor | Your bank refused and will not give a reason | Go to step 3 |
 | Payment system unavailable | A temporary network problem on our side | Wait ten minutes and try again |
 
 The full list is in [decline reasons,
@@ -51,7 +51,7 @@ for whether trying again can work.
 
 ## Step 3: Call your bank
 
-Only two messages need this: **card declined** and **do not honour**. Both mean
+Only two messages need this: **card declined** and **do not honor**. Both mean
 your bank refused and did not tell us why. We cannot see the reason, and no
 amount of retrying will reveal it.
 
@@ -85,7 +85,7 @@ chase an invoice we know is in transit.
 You will get a receipt by email within a few minutes.
 
 **A pending charge from a failed attempt may still be on your statement.** That
-is an authorisation, not a charge, and your bank releases it on its own
+is an authorization, not a charge, and your bank releases it on its own
 schedule, usually within five working days. We cannot release it sooner, and
 contacting us about it will not speed it up. If it is still there after ten
 working days, ask your bank about it directly.

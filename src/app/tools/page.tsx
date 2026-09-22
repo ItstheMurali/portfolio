@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import SubPageShell from "@/components/SubPageShell";
-import { getTools } from "@/lib/content";
+import { getCopy, getTools } from "@/lib/content";
 import { workSlug } from "@/lib/defaultContent";
 
 export const revalidate = 0;
@@ -9,22 +9,24 @@ export const revalidate = 0;
 export const metadata: Metadata = {
   title: "Tools I Built · Murali Krishna Kolipaka",
   description:
-    "Five automation tools built to eliminate documentation workflow inefficiencies: content extraction, editorial review, crawling, intake sync, and format pipelines.",
+    "Automation tools built to eliminate documentation workflow inefficiencies: content extraction, editorial review, crawling, intake sync, and format pipelines.",
 };
 
 /* One long-form page holding every tool as a bookmarked section.
-   Tool cards on the portfolio link to /tools#<slug>. */
+   Tool cards on the portfolio link to /tools#<slug>.
+
+   Heading and closing come from the copy table, the same source the
+   homepage section reads, so editing the line in one place changes both. */
 
 export default async function ToolsPage() {
-  const tools = await getTools();
+  const [tools, copy] = await Promise.all([getTools(), getCopy()]);
 
   return (
     <SubPageShell>
       <main className="mx-auto max-w-3xl px-6 pb-16 pt-16 md:px-10 md:pt-24">
         <p className="label font-mono text-[11px] text-pen">The Tools</p>
         <h1 className="mt-3 font-syne text-heading-1 font-bold leading-snug text-human">
-          I found inefficiencies in my own workflow. So I built tools to
-          eliminate them.
+          {copy.toolsHeading}
         </h1>
 
         {/* bookmark index */}
@@ -97,7 +99,7 @@ export default async function ToolsPage() {
         </div>
 
         <p className="mt-20 text-center font-syne text-lg font-bold text-human">
-          None of these were in my job description. All of them were in my job.
+          {copy.toolsClosing}
         </p>
       </main>
     </SubPageShell>

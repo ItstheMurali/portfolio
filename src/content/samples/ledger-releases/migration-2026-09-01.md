@@ -36,7 +36,7 @@ GROUP BY payment_id;
 ```
 
 No rows means you are not affected in practice, whatever your code allows.
-Rows mean you have been relying on the old behaviour, whether or not it has
+Rows mean you have been relying on the old behavior, whether or not it has
 over-refunded anything yet.
 
 ## What changed
@@ -45,7 +45,7 @@ Before `2026-09-01`, `refund_amount_exceeded` was evaluated against refund
 amounts that had been *requested*. From `2026-09-01`, it is evaluated against
 refunds that have *settled*.
 
-The old behaviour allowed two concurrent ₹600 refunds against a ₹1,000 payment
+The old behavior allowed two concurrent ₹600 refunds against a ₹1,000 payment
 to both be accepted, because neither had settled when the other was checked.
 The result was a ₹1,200 refund against a ₹1,000 payment, and a reconciliation
 entry nobody could explain a month later. Which of the two requests won was
@@ -67,7 +67,7 @@ headroom = amount - amount_refunded - amount_refund_pending
 
 ### If you fan out refunds in parallel
 
-Serialise them per payment. Refunds against *different* payments can still run
+Serialize them per payment. Refunds against *different* payments can still run
 concurrently; only refunds against the *same* payment need ordering.
 
 ```js
@@ -138,7 +138,7 @@ A genuine over-refund retried every minute is a loop that never exits.
 
 ## Verify before you pin
 
-The sandbox runs both behaviours, selected by the `Ledger-Version` header, so
+The sandbox runs both behaviors, selected by the `Ledger-Version` header, so
 you can test the change without touching production.
 
 1. Create a payment of ₹1,000 in sandbox and let it settle to `succeeded`.
@@ -162,15 +162,15 @@ version at construction time and drop it on per-call overrides.
 |---|---|
 | 2026-09-01 | Release available. Opt in with the header. Nothing changes for accounts that do not. |
 | 2027-03-01 | New accounts default to `2026-09-01` or later. Existing pins are untouched. |
-| 2027-09-01 | Earliest date the old behaviour is removed. At least 90 days' notice by email to account owners before it is. |
+| 2027-09-01 | Earliest date the old behavior is removed. At least 90 days' notice by email to account owners before it is. |
 
-You have twelve months. The old behaviour is not being removed abruptly,
+You have twelve months. The old behavior is not being removed abruptly,
 because the integrations most likely to depend on it are the ones least likely
 to be under active development.
 
 ## If you cannot migrate in time
 
-Serialising refunds per payment is the correct fix, and it is small. If it is
+Serializing refunds per payment is the correct fix, and it is small. If it is
 genuinely blocked, there is one interim measure that is safe:
 
 Keep a short-lived lock per `payment_id` on your side, held for the duration of

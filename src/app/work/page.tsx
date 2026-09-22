@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import SubPageShell from "@/components/SubPageShell";
-import { getWorkCategories } from "@/lib/content";
+import { getCopy, getWorkCategories } from "@/lib/content";
 import { workSlug } from "@/lib/defaultContent";
 
 export const revalidate = 0;
@@ -9,21 +9,27 @@ export const revalidate = 0;
 export const metadata: Metadata = {
   title: "Work Samples · Murali Krishna Kolipaka",
   description:
-    "Detailed work samples across API documentation, user documentation, release notes, knowledge bases, technical manuals, information architecture, and docs-as-code.",
+    "Detailed work samples across API documentation, user documentation, release notes, knowledge bases, technical manuals, information architecture, and Docs-as-Code.",
 };
 
 /* One long-form page holding every work category as a bookmarked section.
-   Cards on the portfolio link to /work#<slug>. */
+   Cards on the portfolio link to /work#<slug>.
+
+   The heading comes from the copy table, the same source the homepage
+   section reads, so the line cannot drift between the two surfaces. */
 
 export default async function WorkPage() {
-  const categories = await getWorkCategories();
+  const [categories, copy] = await Promise.all([
+    getWorkCategories(),
+    getCopy(),
+  ]);
 
   return (
     <SubPageShell>
       <main className="mx-auto max-w-3xl px-6 pb-16 pt-16 md:px-10 md:pt-24">
         <p className="label font-mono text-[11px] text-pen">The Work</p>
         <h1 className="mt-3 font-syne text-heading-1 font-bold leading-snug text-human">
-          Every document is a decision. Here are some of mine.
+          {copy.workHeading}
         </h1>
         <p className="mt-5 font-fraunces text-[15px] leading-[1.8] text-human/70">
           Each category below links to a complete sample rather than an excerpt.

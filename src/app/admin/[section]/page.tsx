@@ -69,7 +69,7 @@ const configs: Record<string, Config> = {
         type: "select",
         options: ["work", "sample"],
       },
-      { key: "org", label: "Organisation / context", type: "text" },
+      { key: "org", label: "Organization / context", type: "text" },
       { key: "period", label: "Period (e.g. Dec 2025 – Present)", type: "text" },
       { key: "stack", label: "Tools and standards used", type: "tags" },
       { key: "problem", label: "Problem", type: "textarea" },

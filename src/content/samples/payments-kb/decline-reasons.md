@@ -12,9 +12,9 @@ Find your message in the table, then read its section below if you need more.
 | Incorrect details | A number, date, or code was wrong | Yes, if you correct them |
 | Address does not match | Billing address differs from your bank's record | Yes, with the right address |
 | Card declined | Your bank refused, without a reason | Rarely, and not without calling them |
-| Do not honour | Your bank refused and will not say why | Rarely, and not without calling them |
+| Do not honor | Your bank refused and will not say why | Rarely, and not without calling them |
 | Card not supported | Your bank blocks this type of payment | No, until your bank lifts the block |
-| Card reported lost or stolen | The card has been cancelled | No |
+| Card reported lost or stolen | The card has been canceled | No |
 | Withdrawal limit exceeded | Past a daily or per-transaction cap | Yes, usually the next day |
 | Payment system unavailable | A temporary fault, not your card | Yes, after about ten minutes |
 
@@ -65,10 +65,10 @@ profile or statement settings.
 
 Your bank refused the payment and did not tell us why.
 
-This sounds unhelpful, and it is, but it is also deliberate on their part:
-banks do not send refusal reasons to merchants, because doing so would help
-anyone testing stolen cards learn what works. The only party who can tell you
-the reason is your bank.
+This sounds unhelpful, and it is, but the silence is deliberate and it is not
+ours. Card networks withhold the reason from merchants by design. The only
+party who can tell you is your bank, and they can usually tell you in a
+two-minute phone call.
 
 **Do this:** call the number on the back of your card. Ask whether there is a
 block or a fraud hold on recent transactions. Most of these are a
@@ -78,13 +78,13 @@ release it while you are on the phone.
 **Do not** keep retrying. See [why retrying usually
 fails](/samples/payments-kb/why-retrying-fails).
 
-## Do not honour
+## Do not honor
 
 Your bank refused and explicitly declined to give a reason. This is a
 deliberate instruction from them to stop asking, not a technical fault.
 
 Treat it exactly like **card declined**: call your bank. Retrying is close to
-useless here, and repeated attempts against a do-not-honour response are the
+useless here, and repeated attempts against a do-not-honor response are the
 fastest way to get a card blocked entirely.
 
 ## Card not supported
@@ -102,7 +102,7 @@ different card is the only route.
 
 ## Card reported lost or stolen
 
-The card has been cancelled by your bank. Payments will never succeed on it
+The card has been canceled by your bank. Payments will never succeed on it
 again.
 
 **Do this:** use a different card. If you did not report it, call your bank
@@ -129,10 +129,10 @@ may not know about it yet.
 
 ## What a decline is not
 
-**It is not a charge.** No money moved. You may see a pending authorisation on
+**It is not a charge.** No money moved. You may see a pending authorization on
 your statement for a few days; your bank releases it on its own schedule.
 
-**It is not a judgement about you.** Most declines are a bank's fraud system
+**It is not a judgment about you.** Most declines are a bank's fraud system
 being cautious about an unfamiliar merchant, which is the system working as
 intended even when it is inconvenient.
 

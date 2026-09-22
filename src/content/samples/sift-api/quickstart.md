@@ -161,7 +161,7 @@ no `4xx`, no exception for your handler to catch. The extraction completed
 exactly as designed and produced a wrong answer, and the only signal that
 anything is off is a number.
 
-This is the single most important behaviour to internalise, and it is why this
+This is the single most important behavior to internalize, and it is why this
 tutorial shows it in step 3 rather than burying it in a note at the end.
 If you write your integration against step 1 and discover step 3 in production,
 you will have already paid a wrong invoice.

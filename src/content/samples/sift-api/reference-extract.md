@@ -135,7 +135,7 @@ charges, are created.
 `RateLimit` and `RateLimit-Policy` using the structured-field syntax of
 `draft-ietf-httpapi-ratelimit-headers`, which is an Internet-Draft rather than
 a published RFC; treat those two as advisory pacing information and depend on
-`Retry-After`, which is standardised in RFC 9110.
+`Retry-After`, which is standardized in RFC 9110.
 
 Submission is cheap and retrieval is not. Use webhooks rather than polling. An
 integration that polls every extraction every second will exhaust its quota on

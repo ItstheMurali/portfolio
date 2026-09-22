@@ -56,7 +56,18 @@ export default function FilmsSection({
         {/* the stillness lives here — no animation until showCards */}
         <div className="h-14" aria-hidden="true" />
 
-        <div className="grid min-h-[300px] grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {/* Columns follow the film count so the row stays centered. A fixed
+            three-column grid holding two films leaves a gap on the right and
+            reads as a missing card rather than as a deliberate pair. */}
+        <div
+          className={`mx-auto grid min-h-[300px] grid-cols-1 gap-6 ${
+            films.length === 1
+              ? "max-w-sm"
+              : films.length === 2
+                ? "max-w-3xl sm:grid-cols-2"
+                : "sm:grid-cols-2 lg:grid-cols-3"
+          }`}
+        >
           {showCards &&
             films.map((film, i) => (
               <motion.a

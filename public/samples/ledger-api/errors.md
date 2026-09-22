@@ -272,7 +272,7 @@ Read the `RateLimit` and `RateLimit-Policy` response fields to pace yourself
 before you are throttled rather than after. These follow
 [`draft-ietf-httpapi-ratelimit-headers`][ratelimit-draft], which is an
 Internet-Draft rather than a published RFC — depend on `Retry-After`, which is
-standardised in [RFC 9110][rfc9110], and treat the other two as advisory.
+standardized in [RFC 9110][rfc9110], and treat the other two as advisory.
 
 **Retry?** Yes, with backoff.
 

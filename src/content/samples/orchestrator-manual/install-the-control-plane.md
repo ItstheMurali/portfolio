@@ -33,7 +33,7 @@ be corrected without repeating steps 5 through 8.
 
 > **WARNING**
 >
-> Step 6 initialises the database schema and erases all data in the target
+> Step 6 initializes the database schema and erases all data in the target
 > database. Confirm the database is empty before you run step 6. Data erased at
 > this step is not recoverable.
 
@@ -99,14 +99,14 @@ be corrected without repeating steps 5 through 8.
    The mode on the key is `0600`. Do not widen it. If a later step reports that
    the key is unreadable, correct the owner, not the mode.
 
-### Initialise the database
+### Initialize the database
 
 > **WARNING**
 >
 > Step 6 erases all data in the target database. Confirm the database is empty
 > before you continue. Data erased at this step is not recoverable.
 
-6. Initialise the schema:
+6. Initialize the schema:
 
    ```bash
    sudo -u orchestrator orchestrator-ctl db init \
@@ -116,7 +116,7 @@ be corrected without repeating steps 5 through 8.
    The command prompts for the password and prints the name of the target
    database. Read the printed name before you confirm.
 
-   Expected output ends with `schema initialised: 47 tables`.
+   Expected output ends with `schema initialized: 47 tables`.
 
 ### Configure and start
 

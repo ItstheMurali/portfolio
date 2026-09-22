@@ -24,7 +24,7 @@ move together.
 
 **Not breaking**, and therefore shipped without a new dated release: new
 optional request fields, new response fields, new enum members in responses.
-Clients must ignore unrecognised response fields and tolerate unrecognised enum
+Clients must ignore unrecognized response fields and tolerate unrecognized enum
 members. This is stated in the API description and it is a real obligation; an
 integration that fails closed on an unknown enum member will break on an
 additive change.
@@ -49,7 +49,7 @@ additive change.
 
 **Breaking change to refund headroom.** Affects any integration that issues
 more than one refund against a single payment. If you issue at most one refund
-per payment, nothing in this release changes your behaviour.
+per payment, nothing in this release changes your behavior.
 
 **[Full migration guide](/samples/ledger-releases/migration-2026-09-01)**,
 including how to detect whether you are exposed and how to verify the fix in
@@ -110,11 +110,11 @@ sandbox.
 ### Fixed
 - Rate-limit response fields were documented as **RFC 9773**. No such RFC
   exists. The fields follow `draft-ietf-httpapi-ratelimit-headers`, which is an
-  Internet-Draft. No behaviour changed; the documentation was wrong for the
+  Internet-Draft. No behavior changed; the documentation was wrong for the
   period between 2026-03-01 and this release, and anyone who implemented
   against the cited RFC number was chasing a document that was never published.
 
-  `Retry-After` is standardised in RFC 9110 and remains the value to depend on.
+  `Retry-After` is standardized in RFC 9110 and remains the value to depend on.
 
 ---
 

@@ -57,7 +57,7 @@ consumer and invite locale-dependent formatting bugs. Integers in the minor
 unit are unambiguous in every language without a decimal library.
 
 **Why an object rather than sibling fields.** An `amount` without its currency
-travelling beside it is a defect waiting to happen — the two get separated in
+traveling beside it is a defect waiting to happen — the two get separated in
 logs, in intermediate structs, in a spreadsheet export. Binding them in one
 object makes the pair atomic.
 
@@ -82,7 +82,7 @@ float amount from ever entering the spec.
 code, and `type` gives every error a dereferenceable documentation URL.
 
 **Why a separate `code` field when `type` already identifies the problem.**
-`type` is a URI, and URIs get reorganised when documentation moves. `code` is a
+`type` is a URI, and URIs get reorganized when documentation moves. `code` is a
 short, stable token that is guaranteed never to change for a given condition.
 Telling integrators to branch on a URI is telling them to couple their control
 flow to our information architecture.
@@ -109,9 +109,9 @@ can map which invoice IDs exist without ever reading one.
 **Why it is documented rather than left implicit.** Security-by-obscurity that
 integrators do not know about generates support tickets — "your API says 404 but
 I can see the record in the dashboard." The `404` response description states
-the behaviour and says plainly that the ambiguity is deliberate and permanent.
-Undocumented defensive behaviour is a support cost; documented defensive
-behaviour is a feature.
+the behavior and says plainly that the ambiguity is deliberate and permanent.
+Undocumented defensive behavior is a support cost; documented defensive
+behavior is a feature.
 
 ---
 
@@ -123,7 +123,7 @@ Two distinct `409` codes: `idempotency_in_progress` and
 
 **Alternative rejected.** One `409 idempotency_conflict`.
 
-**Why the split.** The two conditions require opposite client behaviour. An
+**Why the split.** The two conditions require opposite client behavior. An
 in-flight original means *retry shortly*. A key reused with a different body
 means *stop and fix your code; retrying is futile*. Collapsing them into one
 code forces every integrator to guess, and the common guess — retry — turns a
@@ -175,7 +175,7 @@ precondition converts a silent overwrite into a caught, retryable `412`.
 
 **The documented anti-pattern.** The `412` entry in the error reference
 explicitly warns against stripping `If-Match` to force the write through, since
-that is the fastest way past the error and the exact behaviour the mechanism
+that is the fastest way past the error and the exact behavior the mechanism
 exists to prevent. Documenting the workaround you *don't* want is more
 effective than hoping nobody finds it.
 
@@ -209,7 +209,7 @@ that it is an Internet-Draft rather than a published RFC.
 shapes have already changed once across revisions — earlier drafts defined
 `RateLimit-Limit` / `-Remaining` / `-Reset`, the current one defines a combined
 `RateLimit`. An integrator who hardcodes against a draft deserves to know it is
-a draft. `Retry-After` is standardised in RFC 9110, so the documentation points
+a draft. `Retry-After` is standardized in RFC 9110, so the documentation points
 clients at that as the value to depend on.
 
 **Note on this repository's own process.** The first draft of this spec cited

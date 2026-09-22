@@ -12,7 +12,7 @@ procedure with this product; application development against the Orchestrator
 API, covered in the *Developer Guide*; and migration from 3.x, covered in the
 *Upgrade Manual*.
 
-Procedures are verified against **Orchestrator 4.6.0**. Where behaviour differs
+Procedures are verified against **Orchestrator 4.6.0**. Where behavior differs
 in an earlier 4.x release, the step names the release.
 
 ## Audience
@@ -28,7 +28,7 @@ This manual is written for a systems administrator who:
 It assumes no prior knowledge of Orchestrator. It does not teach Linux
 administration, PKI, or PostgreSQL operation.
 
-## How this manual is organised
+## How this manual is organized
 
 The manual is built from **modules**, not chapters. A module is a
 self-contained unit addressing one topic, and it is written so that a reader
@@ -116,7 +116,7 @@ form an opinion:
 |---|---|
 | `monospace` | Text entered literally, or output shown literally |
 | `<angle brackets>` | A value the reader substitutes |
-| **Bold** | A user-interface element, exactly as labelled on screen |
+| **Bold** | A user-interface element, exactly as labeled on screen |
 | *Italic* | The title of another manual |
 | → | Navigation through a menu, for example **Settings → Nodes** |
 

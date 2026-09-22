@@ -39,7 +39,7 @@ export default function SamplesIndexPage() {
                   {set.title}
                 </h2>
                 <p className="mt-3 font-fraunces text-sm leading-[1.75] text-human/65">
-                  {set.summary}
+                  {set.teaser}
                 </p>
                 <p className="mt-4 font-mono text-[11px] text-human/35">
                   {set.docs.length > 0

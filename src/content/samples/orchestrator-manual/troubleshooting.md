@@ -1,6 +1,6 @@
 ## How to use this section
 
-Fault isolation modules are organised by **symptom**, not by error message. You
+Fault isolation modules are organized by **symptom**, not by error message. You
 observe a symptom; you do not always have an error message, and when you do it
 is often a consequence rather than a cause.
 

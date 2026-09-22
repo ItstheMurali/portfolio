@@ -9,7 +9,7 @@
 Ledger API demonstrates spec-first design for billing and invoicing. It fuses three rare skills:
 
 - **Structured authoring rigor** (S1000D/iSpec 2200 from aerospace)
-- **Payments domain depth** (Google Ads Billing pod)
+- **Payments domain depth** (billing, refunds and payment-method documentation at scale)
 - **Tool-building mindset** (Culvert, pipeline architecture)
 
 ### What's Included
@@ -18,7 +18,7 @@ Ledger API demonstrates spec-first design for billing and invoicing. It fuses th
 |------|---------|
 | `openapi.yaml` | OpenAPI 3.1.1 specification (8 operations, 19 schemas, 3 webhooks) |
 | `redocly.yaml` | Governance ruleset (25 rules: 16 built-in + 9 custom) |
-| `docs/errors.md` | Error reference (8 codes, one cause + one fix each) |
+| `docs/errors.md` | Error reference (15 codes, one cause + one fix each) |
 | `DESIGN-DECISIONS.md` | 11 design decisions with full rationale |
 | `docs/reference.html` | Interactive API documentation (auto-generated) |
 | `.github/workflows/` | CI/CD: automatic validation on every PR |
@@ -81,20 +81,21 @@ This project:
 
 **Negative Test**: 4 defects deliberately injected. All 4 caught. ✓
 
-### 2. Error Taxonomy (8 Codes)
+### 2. Error Taxonomy (15 Codes)
+
+The eight most frequently hit are below. The full fifteen, each with one cause
+and one fix, are in `docs/errors.md`.
 
 | Status | Code | Cause | Fix |
 |--------|------|-------|-----|
-| 422 | `validation_failed` | Missing or invalid field | Correct the request |
-| 401 | `invalid_api_key` | Key is invalid or expired | Use valid key |
-| 403 | `insufficient_scope` | Key lacks permission | Request broader scope |
-| 404 | `resource_not_found` | Invoice doesn't exist (or inaccessible) | Use valid ID |
-| 409 | `idempotency_key_reused` | Same key, different request | Use new key or same request |
-| 422 | `invoice_not_editable` | Invoice in terminal state | Create new invoice |
-| 429 | `rate_limit_exceeded` | Too many requests | Retry after delay |
-| 500 | `internal_error` | Unexpected failure | Retry with same Idempotency-Key |
-
-See `docs/errors.md` for complete reference.
+| 401 | `invalid_api_key` | Key revoked, malformed, or wrong environment | Match the key prefix to the host |
+| 403 | `insufficient_scope` | Key lacks the required privilege | Use a key with the scope |
+| 404 | `resource_not_found` | No such resource is visible to this credential | Check the ID and the environment |
+| 409 | `idempotency_key_reused` | Same key, different request body | Fix key generation |
+| 412 | `precondition_failed` | Stale `If-Match`; nothing was written | Re-read, re-apply, resend |
+| 422 | `validation_failed` | One or more fields failed validation | Correct the fields in `errors[]` |
+| 429 | `rate_limit_exceeded` | Quota exhausted for the window | Wait `Retry-After`, back off with jitter |
+| 500 | `internal_error` | Failure on our side; outcome **unknown** | Retry with the same `Idempotency-Key` |
 
 ### 3. Design Decisions (11 Recorded)
 
@@ -115,7 +116,7 @@ All 11 decisions in `DESIGN-DECISIONS.md`.
 ✓ 8 Operations (invoices, payments, refunds)
 ✓ 19 Schemas (Invoice, Money, Problem, etc.)
 ✓ 3 Webhooks (invoice.finalized, invoice.paid, payment.failed)
-✓ 8 Error Codes (fully documented)
+✓ 15 Error Codes (fully documented)
 ✓ 1 Authentication Scheme (bearer secret key, environment-scoped)
 ✓ 25 Governance Rules (all validated)
 ```
@@ -159,7 +160,7 @@ payment.failed       # Sent when payment declined
 HTTP 201 Created
 {
   "id": "pay_123",
-  "status": "declined",          // ← The actual outcome
+  "status": "failed",            // ← The actual outcome
   "failure_code": "card_expired"
 }
 ```
@@ -187,7 +188,7 @@ One transaction hides the error. Scale to a million transactions and reconciliat
 
 ### 3. 404 for Other-Account Resources
 
-**Returns 403 would confirm the ID exists. Returns 404 doesn't.**
+**Returning 403 would confirm the ID exists. Returning 404 does not.**
 
 ```bash
 # If API returned 403 "Forbidden"
@@ -202,6 +203,11 @@ One transaction hides the error. Scale to a million transactions and reconciliat
 
 ## Structure
 
+The portfolio copy publishes the seven files that carry the documentation
+work: `openapi.yaml`, `redocly.yaml`, `errors.md`, `DESIGN-DECISIONS.md`,
+`reference.html`, `README.md`, and `package.json`. The tree below is the full
+repository layout those files sit in.
+
 ```
 ledger-api/
 ├── openapi.yaml                 # API specification (source of truth)
@@ -214,7 +220,7 @@ ledger-api/
 │
 ├── docs/
 │   ├── GETTING_STARTED.md       # Quick start guide
-│   ├── errors.md                # Error reference (all 7 patterns)
+│   ├── errors.md                # Error reference (all 15 codes)
 │   └── reference.html           # Generated interactive docs
 │
 ├── scripts/
@@ -331,7 +337,7 @@ Checks:
 | OpenAPI 3.1.1 | API specification | Stable |
 | RFC 9457 | Problem Details format | Stable (Jul 2023) |
 | RFC 9110 | HTTP semantics (Retry-After) | Stable (Jun 2022) |
-| RFC 6901 | JSON Pointer (for $ref) | Stable |
+| RFC 6901 | JSON Pointer (for `errors[].field` paths) | Stable |
 | draft-ietf-httpapi-ratelimit-headers | Rate limit response fields | Internet-Draft (Rev 11, May 2026) |
 | iSpec 2200 | Structured authoring framework | Aerospace standard |
 

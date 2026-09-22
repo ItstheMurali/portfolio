@@ -32,7 +32,7 @@ Knowing this makes the rest of these articles easier to follow.
 
 **An invoice becomes payable when it is issued.** Before that it is a draft,
 and a draft can change. After it is issued, the amounts are fixed; a correction
-is made by cancelling the invoice and issuing a new one, not by editing it.
+is made by canceling the invoice and issuing a new one, not by editing it.
 
 **A payment attempt is separate from the invoice.** You can attempt payment on
 one invoice several times, with different cards. The invoice stays open until
@@ -40,7 +40,7 @@ one attempt succeeds. A failed attempt does not cancel the invoice and does not
 mean you owe less.
 
 **A declined payment is not a charge.** No money moves. You may still see a
-pending authorisation on your statement for a few days; your bank releases it
+pending authorization on your statement for a few days; your bank releases it
 on its own schedule, and we cannot make that happen faster.
 
 **Refunds go back to the card that paid.** Always. We cannot redirect a refund

@@ -2,8 +2,8 @@ This is a prose linting system: a Vale ruleset and a CI pipeline that enforce
 editorial standards on documentation the way a linter enforces them on code.
 
 It exists because editorial review does not scale. One editor, applying good
-judgement one document at a time, is a bottleneck and a single point of
-failure. The rules below encode the judgements that can be encoded, so the
+judgment one document at a time, is a bottleneck and a single point of
+failure. The rules below encode the judgments that can be encoded, so the
 editor's time goes to the ones that cannot.
 
 ## The principle: every rule names its defect
@@ -106,6 +106,13 @@ imperative verb joined by `and` or `then`.
 between them, and interruption during a procedure is the normal case rather
 than the exception.
 
+> These last two rules are not new standards. They are rules 1 and 7 of the
+> [Orchestrator manual](/samples/orchestrator-manual/about-this-manual), which
+> states its writing rules in its front matter so a reviewer can check
+> compliance. That manual relies on a human holding to them. This ruleset is
+> the same two rules with the human taken out of the enforcement path, which
+> is the only version that survives a team growing past one careful writer.
+
 ### Consistency
 
 These are `warning`. They are usually right.
@@ -114,16 +121,16 @@ These are `warning`. They are usually right.
 one: `log in` for `sign in` and `signin`, `select` for `click on`, `uninstall`
 for `remove the app`.
 
-*Defect prevented:* a reader searching the help centre for the word on the
+*Defect prevented:* a reader searching the help center for the word on the
 screen finds nothing, because three articles used three words for one action.
 Terminology drift is invisible to each individual author and obvious in
 aggregate.
 
-**`Docs.FutureTense`** flags `will` in descriptions of system behaviour.
+**`Docs.FutureTense`** flags `will` in descriptions of system behavior.
 
 *Defect prevented:* "the service will start" reads as a prediction. "The
 service starts" reads as a fact. In reference documentation the difference
-matters, because the reader is deciding whether to depend on the behaviour.
+matters, because the reader is deciding whether to depend on the behavior.
 
 **`Docs.Wordiness`** maps padding to its replacement: `in order to` to `to`,
 `at this point in time` to `now`, `is able to` to `can`.
@@ -166,24 +173,24 @@ a reason.
 
 **Passive voice.** Rejected. Passive voice is frequently the right choice in
 technical writing, because it puts the reader's object of interest in the
-subject position: "the invoice is finalised" is better than "the system
-finalises the invoice" when the invoice is what the reader cares about. A
+subject position: "the invoice is finalized" is better than "the system
+finalizes the invoice" when the invoice is what the reader cares about. A
 passive-voice linter produces a large number of false positives, and a rule
 with a high false-positive rate trains writers to ignore the output.
 
 **Readability scores.** Rejected. Flesch-Kincaid and its relatives measure
 syllable and sentence length, which are proxies for difficulty rather than
 difficulty itself. "Deprecate the idempotency key" scores as easy. A gate on a
-proxy optimises the proxy.
+proxy optimizes the proxy.
 
 **Inclusive-language substitutions.** Not rejected, but not automated here.
 These are handled by a shared, separately versioned Vale package maintained
-across the organisation, because the list changes on a different cadence than
+across the organization, because the list changes on a different cadence than
 this ruleset and should not require a pull request to this repository.
 
 **Headings must be sentence case.** Rejected as an `error`, kept as a
 `warning`. A heading in title case is inconsistent; it is not wrong, and it
-does not mislead anyone. Blocking a merge over capitalisation is how a build
+does not mislead anyone. Blocking a merge over capitalization is how a build
 gate loses its credibility.
 
 ## How it runs
@@ -210,7 +217,7 @@ accumulates rules.
 Three things are tracked:
 
 **Failures by rule, monthly.** A rule that never fires is either fully
-internalised, in which case it is cheap to keep, or it is unnecessary. A rule
+internalized, in which case it is cheap to keep, or it is unnecessary. A rule
 that fires constantly is either catching a real and persistent problem, or it
 is wrong and is being worked around.
 

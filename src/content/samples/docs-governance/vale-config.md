@@ -198,9 +198,9 @@ swap:
 ```yaml
 extends: existence
 message: >-
-  "%s" states system behaviour as a prediction. Use the present tense: "the
+  "%s" states system behavior as a prediction. Use the present tense: "the
   service starts", not "the service will start". The reader is deciding
-  whether to depend on this behaviour.
+  whether to depend on this behavior.
 level: warning
 tokens:
   - '\bwill (be |then )?(start|stop|return|send|create|display|show|appear)\w*'

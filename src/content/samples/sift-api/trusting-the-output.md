@@ -5,7 +5,7 @@ finance or operations team will accept.
 
 If you have not read the [quickstart](/samples/sift-api/quickstart), read it
 first. It shows a wrong answer returned with `status: succeeded`, which is the
-behaviour this page exists to help you handle.
+behavior this page exists to help you handle.
 
 ## What confidence measures
 
@@ -134,7 +134,7 @@ it.
 
 **The extraction was wrong.** The document was readable and the model misread
 it. This is what the review queue is for, and every correction your reviewers
-make is a labelled example. Export them.
+make is a labeled example. Export them.
 
 **The request was wrong.** You asked for `schema: "invoice"` and sent a packing
 slip. Every field comes back null or near-zero and it looks like a catastrophic

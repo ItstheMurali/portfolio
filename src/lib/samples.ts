@@ -29,6 +29,10 @@ export interface SampleSet {
   slug: string;
   title: string;
   kicker: string;
+  /** One line for the index card. Must not repeat `summary`, which the
+      set page shows: a reader clicking through should not read the same
+      paragraph twice. */
+  teaser: string;
   /** One or two sentences: what this is and who it is for. */
   summary: string;
   /** The specific craft decisions worth looking at. */
@@ -46,6 +50,8 @@ export const sampleSets: SampleSet[] = [
     slug: "ledger-api",
     title: "Ledger API",
     kicker: "Spec-first API reference · billing",
+    teaser:
+      "The specification governs itself: 25 rules that fail the build rather than filing a warning nobody reads.",
     summary:
       "A complete billing API documentation system: invoices, payments, and refunds, specified in OpenAPI 3.1.1 and governed by a ruleset that fails the build. Reference-first, written for an integrator who is moving money and cannot afford an ambiguity.",
     craft: [
@@ -77,6 +83,8 @@ export const sampleSets: SampleSet[] = [
     slug: "sift-api",
     title: "Sift API",
     kicker: "Tutorial-first API docs · document extraction",
+    teaser:
+      "The quickstart returns a wrong answer in step 3, deliberately, before the reader has built anything on the right one.",
     summary:
       "Documentation for an extraction API that returns confidence scores instead of certainties. Where the Ledger API is reference-first for a reader who knows what they want, this is tutorial-first for a reader who does not yet know what the system can and cannot promise.",
     craft: [
@@ -115,13 +123,15 @@ export const sampleSets: SampleSet[] = [
     slug: "ledger-releases",
     title: "Ledger API release notes",
     kicker: "Release communication · versioning and migration",
+    teaser:
+      "A breaking change written so a team can plan around it rather than discover it.",
     summary:
       "Three consecutive releases of the Ledger API, including one breaking change with a full migration path. Written to the versioning policy the API specification itself publishes, so the notes and the contract agree.",
     craft: [
       "Keep a Changelog structure with dated releases, matching the Ledger-Version header the API actually ships.",
       "The breaking change leads with who is affected and how to test the fix, not with what the engineering team built.",
       "States what is deliberately not changing and why, which is the question every upgrade planning meeting asks second.",
-      "Corrects an error shipped in the previous release in public, with the window during which the wrong behaviour was live.",
+      "Corrects an error shipped in the previous release in public, with the window during which the wrong behavior was live.",
     ],
     standards: ["Keep a Changelog 1.1.0", "SemVer 2.0.0", "Dated releases"],
     docs: [
@@ -144,13 +154,15 @@ export const sampleSets: SampleSet[] = [
   {
     slug: "payments-kb",
     title: "Payments knowledge base",
-    kicker: "Help centre suite · four linked articles",
+    kicker: "Help center suite · four linked articles",
+    teaser:
+      "One bad afternoon, answered four ways for four readers who each arrived at a different moment.",
     summary:
       "A four-article knowledge base covering one painful problem from four angles: orientation, task, reference, and explanation. Written for the merchant whose payment just failed, using the same underlying facts the Ledger API states to engineers.",
     craft: [
-      "The hub is built for arrival from search rather than from the top, because almost nobody reaches a help centre through its front door.",
+      "The hub is built for arrival from search rather than from the top, because almost nobody reaches a help center through its front door.",
       "The same decline reasons appear here and in the Ledger error reference, in two registers: one for a person whose card was refused, one for the service that has to branch on it.",
-      "The retry article exists to stop a specific harmful behaviour, so it leads with the consequence rather than the mechanism.",
+      "The retry article exists to stop a specific harmful behavior, so it leads with the consequence rather than the mechanism.",
       "Every article names the one thing to do next, because a help article that ends without an action has returned the problem unopened.",
     ],
     standards: ["Diátaxis", "Task-first structure", "Plain language"],
@@ -182,7 +194,7 @@ export const sampleSets: SampleSet[] = [
         title: "Why retrying a declined card usually fails",
         kind: "Explanation",
         blurb:
-          "The article that exists to prevent a behaviour: repeated retries make future payments more likely to fail, not less.",
+          "The article that exists to prevent a behavior: repeated retries make future payments more likely to fail, not less.",
       },
     ],
   },
@@ -190,6 +202,8 @@ export const sampleSets: SampleSet[] = [
     slug: "orchestrator-manual",
     title: "Orchestrator installation and maintenance manual",
     kicker: "Technical manual · structured authoring",
+    teaser:
+      "Eight writing rules stated in the front matter, and a manual that then obeys them.",
     summary:
       "An on-premises installation and maintenance manual written with aerospace documentation discipline: controlled vocabulary, a formal warning hierarchy, one action per step, and verification built into every task. The structured-authoring habits of S1000D and iSpec 2200, applied to software.",
     craft: [
@@ -227,7 +241,9 @@ export const sampleSets: SampleSet[] = [
   {
     slug: "docs-governance",
     title: "Prose governance system",
-    kicker: "Docs-as-code · automated editorial review",
+    kicker: "Docs-as-Code · automated editorial review",
+    teaser:
+      "Every rule names the defect it prevents. So does every rule that was rejected.",
     summary:
       "A Vale ruleset and CI pipeline that enforces editorial standards on prose the way a linter enforces them on code. Every rule names the defect it prevents, and a closing section names the rules that were deliberately not written.",
     craft: [
