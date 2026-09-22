@@ -631,7 +631,7 @@ export const stormFragments = [
   '<topic id="maint-7732" type="task">',
   "SAP webhook retry: signature mismatch",
   "TODO: localize for IN-HI before Q3 launch",
-  "Mariner 1: documentation hyphen omission, 1962",
+  "Mariner 1, 1962: an omitted overbar, not a hyphen",
   "S1000D: DMC-BIKE-A-00-00A-040A-A",
   "git commit -m fix: country selector logic",
   "401 Unauthorized: token expired",
