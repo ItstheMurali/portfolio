@@ -13,11 +13,18 @@ const CHAOS = "#55524C";
 const WARN = "#FF6B6B";
 
 const VIEW = "0 0 400 210";
-const svgProps = {
+
+/* role="img" plus an accessible name is the correct pattern for an SVG that
+   carries meaning. Without it a screen reader walks the shape tree and reads
+   nothing useful, which is the defect the Docs.AltText rule in the prose
+   governance sample exists to prevent. */
+const svgProps = (label: string) => ({
   viewBox: VIEW,
   className: "h-full w-full",
   preserveAspectRatio: "xMidYMid meet" as const,
-};
+  role: "img",
+  "aria-label": label,
+});
 
 const reveal = (delay: number) => ({
   initial: { opacity: 0 },
@@ -124,7 +131,7 @@ export function DiagramApiSurface() {
     { y: 162, label: "Docker" },
   ];
   return (
-    <svg {...svgProps}>
+    <svg {...svgProps("One OpenAPI specification feeding four surfaces: REST endpoints, a Python SDK, SAP webhooks and Docker integrations. The two integration surfaces are marked as the seams where configuration defects fell 40 percent.")}>
       <Cap x={16} y={16} text="SOURCE OF TRUTH" anchor="start" delay={0.1} />
       <Node x={14} y={88} w={96} h={40} label="openapi.yaml" stroke={PEN} delay={0.2} size={10} />
       {surfaces.map((s, i) => (
@@ -160,7 +167,7 @@ export function DiagramApiSurface() {
 /* 2. Culvert: the human transcription step removed from between two systems. */
 export function DiagramSyncLoop() {
   return (
-    <svg {...svgProps}>
+    <svg {...svgProps("Buganizer and Google Sheets exchanging issues and triage decisions directly, with the former by-hand step struck through. Annotated: a 25-plus person team across the US and Manila, and 2 hours per day reclaimed across 60-plus writers.")}>
       <Node x={16} y={80} w={110} h={44} label="Buganizer" stroke={CLARITY} delay={0.1} size={10} />
       <Node x={274} y={80} w={110} h={44} label="Sheets" stroke={CLARITY} delay={0.2} size={10} />
 
@@ -193,7 +200,7 @@ export function DiagramSelectorFan() {
   const cols = 14;
   const rows = 4;
   return (
-    <svg {...svgProps}>
+    <svg {...svgProps("A grid of small squares standing for 250-plus country selectors, converging on a single portfolio content strategy. Annotated: research, then strategy, then a 99.64 percent quality score.")}>
       <Cap x={16} y={18} text="250+ SELECTORS" anchor="start" delay={0.1} />
       {Array.from({ length: rows * cols }).map((_, i) => {
         const c = i % cols;
@@ -229,7 +236,7 @@ export function DiagramSelectorFan() {
 /* 4. XML to Markdown: a gate that a formatting defect cannot pass. */
 export function DiagramMigrationGate() {
   return (
-    <svg {...svgProps}>
+    <svg {...svgProps("150-plus XML manuals passing into a lint and spell-check gate in CI. One defect is turned back at the gate; the rest publish. Annotated: 5,000-plus pages with zero formatting defects.")}>
       <Cap x={16} y={20} text="150+ XML MANUALS" anchor="start" delay={0.1} />
       {[0, 1, 2, 3].map((i) => (
         <motion.rect
@@ -272,7 +279,7 @@ export function DiagramMigrationGate() {
 export function DiagramSingleSource() {
   const targets = [34, 76, 118, 160];
   return (
-    <svg {...svgProps}>
+    <svg {...svgProps("One DITA source topic referenced into four separate manuals. Annotated: 400-plus manuals a month at 98 percent compliance, written to ASD-STE100.")}>
       <Cap x={16} y={20} text="ONE SOURCE MODULE" anchor="start" delay={0.1} />
       <Node x={16} y={84} w={104} h={40} label="DITA topic" stroke={PEN} delay={0.2} size={10} />
       {targets.map((y, i) => (
@@ -298,7 +305,7 @@ export function DiagramSingleSource() {
 export function DiagramGovernanceGate() {
   const rules = ["401", "429", "500", "money", "casing"];
   return (
-    <svg {...svgProps}>
+    <svg {...svgProps("A specification edit entering a panel of 25 CI rules covering 401, 429 and 500 responses, money types and naming case. Compliant edits merge; non-compliant edits are blocked and fail the build.")}>
       <Node x={14} y={86} w={80} h={34} label="spec edit" stroke={CLARITY} delay={0.1} />
       <motion.path {...draw(0.3, 0.5)} d="M94 103 L134 103" stroke={CLARITY} strokeWidth="1" fill="none" />
 
@@ -342,7 +349,7 @@ export function DiagramConfidenceRoute() {
     { x: 264, w: 120, label: "accept", color: CLARITY, sub: "≥ threshold" },
   ];
   return (
-    <svg {...svgProps}>
+    <svg {...svgProps("A confidence axis split into three bands: reject for a null value, review below the field threshold, and accept at or above it. A separate marker notes that any field carrying alternatives goes to review whatever its score.")}>
       <Cap x={16} y={22} text="CONFIDENCE" anchor="start" delay={0.1} />
       <motion.line {...draw(0.2, 0.8)} x1={16} y1={40} x2={384} y2={40} stroke={CHAOS} strokeWidth="1" />
       {bands.map((b, i) => (
@@ -376,7 +383,7 @@ export function DiagramDiataxisQuad() {
     { x: 210, y: 112, label: "explanation", sub: "stop a habit" },
   ];
   return (
-    <svg {...svgProps}>
+    <svg {...svgProps("Four linked articles in a grid: overview for orientation, how-to for acting now, reference for decoding a message, and explanation for stopping a habit.")}>
       {quads.map((q, i) => (
         <motion.g key={q.label} {...reveal(0.15 + i * 0.13)}>
           <rect x={q.x} y={q.y} width={160} height={58} rx={4} fill="none" stroke={i === 3 ? PEN : CLARITY} strokeWidth="1" opacity={0.85} />
@@ -407,7 +414,7 @@ export function DiagramRuleFilter() {
     { y: 164, label: "\"click here\"", kept: false },
   ];
   return (
-    <svg {...svgProps}>
+    <svg {...svgProps("Five kinds of prose meeting a ruleset. Passive voice and long sentences pass through; broken references, missing alt text and vague link text are stopped at the line.")}>
       <Cap x={16} y={26} text="PROSE" anchor="start" delay={0.1} />
       <motion.line {...draw(0.25, 0.7)} x1={196} y1={30} x2={196} y2={186} stroke={PEN} strokeWidth="1.2" />
       <Cap x={196} y={22} text="RULESET" delay={0.35} />

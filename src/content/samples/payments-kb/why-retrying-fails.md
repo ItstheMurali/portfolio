@@ -12,7 +12,7 @@ your card blocked.
 **After two failures, stop and find out why.** Go to [fix a declined
 payment](/samples/payments-kb/fix-a-declined-payment).
 
-**Never retry "card declined" or "do not honor" more than once.** These are
+**Never retry "card declined" or "don't honor" more than once.** These are
 the two messages where repeated attempts do the most damage.
 
 ## Why a retry rarely changes anything
@@ -35,10 +35,10 @@ Banks watch the pattern of attempts, not just each individual one.
 
 Several declines against one card in a short window is the signature of someone
 testing a stolen card. Fraud systems are built to catch exactly that. They
-cannot tell a thief probing from a frustrated customer clicking again, and they
-are not designed to try.
+can't tell a thief probing from a frustrated customer clicking again, and they
+aren't designed to try.
 
-So the fraud system responds the way it is designed to:
+So the fraud system responds the way it's designed to:
 
 **It lowers its tolerance for that card.** Attempts that would have been
 approved start being refused, including ones that have nothing to do with us.
@@ -53,35 +53,35 @@ That last one is why we bothered writing this page.
 
 ## What "do not honor" is really saying
 
-Of all the decline messages, `do not honor` is the one most commonly retried
+Of all the decline messages, `don't honor` is the one most commonly retried
 and the one where retrying is most counterproductive.
 
-It means your bank refused and deliberately withheld the reason. Banks do not
+It means your bank refused and deliberately withheld the reason. Banks don't
 send refusal reasons to merchants, because doing so would tell anyone testing
 stolen cards exactly what to change.
 
-So when you retry a do-not-honor, you are asking a question that has already
-been answered with a refusal to answer. The response will not change, and each
+So when you retry a do-not-honor, you're asking a question that has already
+been answered with a refusal to answer. The response won't change, and each
 attempt adds to the pattern described above.
 
 The only useful next action is to call your bank.
 
 ## What to do instead
 
-**Read the message.** The decline message tells you which of these you have.
+**Read the message.** The decline message tells you which of these you've.
 [Decline reasons, explained](/samples/payments-kb/decline-reasons) covers all
 of them.
 
-**Fix the cause if it is fixable.** An expired card, a wrong address, or a
+**Fix the cause if it's fixable.** An expired card, a wrong address, or a
 mistyped security code are all things you can correct, and the next attempt
 then succeeds for a real reason rather than by chance.
 
-**Call your bank if the message does not say why.** For "card declined" and "do
+**Call your bank if the message doesn't say why.** For "card declined" and "do
 not honor", this is the only route. It usually takes a few minutes, and most
 turn out to be a fraud hold that they can release immediately.
 
 **Use a different card.** The fastest option when the invoice is due. A card
-from a different bank is not subject to the first bank's objection.
+from a different bank isn't subject to the first bank's objection.
 
 **Pay by bank transfer.** Not subject to card limits, card blocks, or fraud
 holds. Details are at the bottom of your invoice. Use the invoice number as the
@@ -89,16 +89,16 @@ reference, and allow one to three working days.
 
 ## If you have already retried several times
 
-Nothing is broken and you have not done any lasting damage. But stop, because
+Nothing is broken and you haven't done any lasting damage. But stop, because
 the next attempt is now less likely to succeed than the first one was.
 
 1. **Stop trying that card today.** If a temporary block was applied, it will
    usually clear within a few hours.
 2. **Pay with a different card or by transfer** if the invoice is due.
-3. **Call your bank** to find out what was actually wrong, so it does not
+3. **Call your bank** to find out what was actually wrong, so it doesn't
    happen again on your next invoice.
 4. **Check your statement** for pending authorizations from the failed
-   attempts. These are not charges; your bank releases them within about five
+   attempts. These aren't charges; your bank releases them within about five
    working days.
 
 If the invoice will be late because of this, tell us before the due date. We do
@@ -110,7 +110,7 @@ We could let the retry button take your clicks. It would generate fewer support
 conversations in the short term.
 
 But the outcome of that is a customer with a temporarily blocked card, a
-pending authorization they do not understand, and an invoice still unpaid. That
+pending authorization they don't understand, and an invoice still unpaid. That
 is a worse day for you and a longer conversation for us, arriving later and
 harder to untangle.
 

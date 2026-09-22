@@ -4,7 +4,7 @@ of Orchestrator 4.x in an on-premises deployment.
 ## Scope
 
 **In scope:** hardware and platform prerequisites, control-plane installation,
-worker-node enrolment, TLS configuration, backup and restore, scheduled
+worker-node enrollment, TLS configuration, backup and restore, scheduled
 maintenance, and fault isolation.
 
 **Not in scope:** the managed cloud service, which shares no installation
@@ -95,6 +95,8 @@ form an opinion:
    second is skipped when the reader is interrupted between them.
 2. **Imperative mood for instructions.** "Enter the hostname", not "the
    hostname should be entered" and not "you will want to enter the hostname".
+   Numbered lists in fault isolation modules rank probable causes, not
+   actions, and are written as statements.
 3. **One meaning per word.** `stop` always means to halt a running process.
    Ending a session is `log out`. Removing software is `uninstall`. These words
    are never exchanged.
@@ -129,7 +131,7 @@ it as one line, or preserve the continuation characters exactly.
 |---|---|---|
 | D | 2026-09-01 | Task 3.2 revised for the 4.6.0 certificate format. FI 7.4 added. |
 | C | 2026-05-12 | Warning hierarchy redefined for this domain and the redefinition documented. Advisory notices moved before their steps throughout. |
-| B | 2026-02-03 | Worker enrolment separated from control-plane installation into its own module. |
+| B | 2026-02-03 | Worker enrollment separated from control-plane installation into its own module. |
 | A | 2025-11-20 | First issue. |
 
 Revision C is the substantive one. Before it, advisory notices appeared after

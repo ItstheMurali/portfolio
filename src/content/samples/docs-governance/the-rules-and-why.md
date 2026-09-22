@@ -18,8 +18,9 @@ rejected, however tidy the writing it would produce.
 
 The practical benefit is at the moment of failure. A writer who trips
 `Docs.FutureTense` sees the defect, not just the correction, and learns the
-standard. A writer who sees `avoid "will"` learns to avoid the word and nothing
-else.
+standard. A writer who only sees `avoid "will"` learns to avoid the word. They
+do not learn why, so they rebuild the same problem somewhere the rule cannot
+reach it.
 
 ## Severity policy
 
@@ -38,8 +39,11 @@ adds noise that trains writers to skim the output, which is how the `error`
 lines get skimmed too.
 
 **The test for `error`:** would a reviewer block a pull request over this? If
-no, it is a `warning`. Severity is not a measure of how strongly the style
-guide feels; it is a measure of reader harm.
+no, it is a `warning`.
+
+A broken cross-reference blocks. An awkward sentence does not. Reviewers argue
+about where that line sits, which is the reason it is written down and not
+left to whoever is on rota.
 
 ## The rules
 
@@ -152,8 +156,8 @@ not, this is the whole page lost.
 more`, or a bare URL.
 
 *Defect prevented:* screen-reader users navigate by a list of links, stripped
-of surrounding prose. Nine links called "here" is nine identical entries. This
-also improves the page for everyone who skims, which is everyone.
+of surrounding prose. Nine links called "here" is nine identical entries.
+Sighted readers skimming a page get the same benefit from the fix.
 
 ## Rules deliberately not written
 
@@ -189,9 +193,8 @@ across the organization, because the list changes on a different cadence than
 this ruleset and should not require a pull request to this repository.
 
 **Headings must be sentence case.** Rejected as an `error`, kept as a
-`warning`. A heading in title case is inconsistent; it is not wrong, and it
-does not mislead anyone. Blocking a merge over capitalization is how a build
-gate loses its credibility.
+`warning`. A heading in title case is inconsistent. It misleads no one. It
+warns.
 
 ## How it runs
 
@@ -229,6 +232,8 @@ suppressions.
 **Time from pull request to merge on docs changes.** If this rises after a rule
 lands, the rule is costing more than it returns, whatever its hit rate.
 
-The ruleset has lost 3 rules to this review and gained 6. Removing a rule that
-is not earning its place is the maintenance, not a failure of the original
-design.
+The ruleset has lost 3 rules to this review and gained 6. One of the three I
+had argued hard for. It fired so often on false positives that writers were
+suppressing it by reflex, which is worse than never having written it.
+
+A ruleset only ever grows on its own. The review is what makes it shrink.

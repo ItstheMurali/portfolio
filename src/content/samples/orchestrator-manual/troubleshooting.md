@@ -21,12 +21,12 @@ volume, so the first cause is the answer more often than the rest combined.
 
 | Symptom | Module |
 |---|---|
-| Control-plane service will not start, or exits after starting | FI 7.1 |
+| Control-plane service does not start, or exits after starting | FI 7.1 |
 | TLS handshake fails when connecting to the control plane | FI 7.2 |
 | Connection to port 8443 is refused or times out | FI 7.3 |
 | Service is running but reports `database: unreachable` | FI 7.4 |
 
-## FI 7.1: Control plane will not start
+## FI 7.1: Control plane does not start
 
 **Symptom.** `systemctl is-active orchestrator-control-plane` returns `failed`
 or `activating`, and does not reach `active` within 60 seconds.
@@ -82,7 +82,7 @@ sudo ss -lntp 'sport = :8443'
 
 If the process is a previous Orchestrator instance, stop it. If the process
 belongs to another product, change that product's port. Do not change the
-Orchestrator port; worker enrolment records the port, and every enrolled worker
+Orchestrator port; worker enrollment records the port, and every enrolled worker
 must then be re-enrolled.
 
 **Cause 4.** The binary and the schema are from different releases. Confirm
@@ -177,7 +177,7 @@ s_client` output and the certificate chain, excluding the private key.
 
 **Never attach a private key to a support case.** If a private key has been
 sent to any third party, treat it as compromised, reissue the certificate, and
-re-enrol every worker.
+re-enroll every worker.
 
 ## FI 7.3: Connection refused or times out
 
@@ -241,15 +241,15 @@ your network team with the source subnets of the worker nodes, the destination
 address of the control plane, and TCP port 8443.
 
 **Cause 5.** Correct the DNS record. Do not work around this with a `hosts`
-file entry: worker enrolment resolves the name independently on every node, and
+file entry: worker enrollment resolves the name independently on every node, and
 an entry that exists only on the administrator's workstation hides the fault
-until enrolment fails.
+until enrollment fails.
 
 ### Escalation boundary
 
 Escalate only after the local `curl --insecure` check succeeds and the fault is
 confirmed to be on the path rather than on the host. A connectivity fault
-between two network segments is not diagnosable from the support bundle.
+between 2 network segments is not diagnosable from the support bundle.
 
 ## FI 7.4: Database unreachable
 

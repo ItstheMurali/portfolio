@@ -2,9 +2,9 @@
 
 This task installs the Orchestrator control plane on a single host and brings
 it to a running state. At the end of this task, the control plane accepts API
-requests and is ready to enrol worker nodes.
+requests and is ready to enroll worker nodes.
 
-Worker enrolment is Task 3.3. High-availability control planes are Task 3.5.
+Worker enrollment is Task 3.3. High-availability control planes are Task 3.5.
 Do not begin either until this task is verified.
 
 **Estimated time:** 25 minutes.
@@ -192,6 +192,6 @@ by hand before the worker can be enrolled again.
 
 ## Next
 
-- **Task 3.3** enrols worker nodes.
+- **Task 3.3** enrolls worker nodes.
 - **Task 6.1** configures the scheduled backup. Complete it within 24 hours;
   a control plane without a verified backup has no recovery path.
