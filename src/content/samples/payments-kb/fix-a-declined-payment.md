@@ -1,5 +1,5 @@
-A declined payment means the attempt was refused. No money left your account,
-and the invoice is still open and still payable.
+A declined payment means the attempt was refused. No money left your account.
+The invoice is still open and still payable.
 
 This page takes about two minutes. Work through it in order; the steps are
 arranged so the most common cause is first.
@@ -26,9 +26,9 @@ on file for that card, not your delivery address and not your office address.
 Moving house without telling your bank is a common cause of this, and the error
 message rarely says so.
 
-**The card is blocked for online or international payments.** Many banks
-disable these by default, especially on newer cards and on debit cards. You
-cannot see this on the card, and the decline message will not say it.
+**The card is blocked for online or international payments.** Many banks turn
+these off by default, especially on newer cards and on debit cards. Nothing on
+the card tells you. The decline message will not say it either.
 
 If one of these was it, fix it and pay the invoice again.
 
@@ -52,8 +52,8 @@ for whether trying again can work.
 ## Step 3: Call your bank
 
 Only two messages need this: **card declined** and **do not honor**. Both mean
-your bank refused and did not tell us why. We cannot see the reason, and no
-amount of retrying will reveal it.
+your bank refused and did not say why. We cannot see the reason. Retrying will
+not reveal it.
 
 The number to call is on the back of your card. Do not use a number from a
 search result or from an email.

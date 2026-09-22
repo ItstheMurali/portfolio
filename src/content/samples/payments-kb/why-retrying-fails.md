@@ -17,8 +17,8 @@ the two messages where repeated attempts do the most damage.
 
 ## Why a retry rarely changes anything
 
-A declined payment is almost never a transmission failure. The request reached
-your bank, your bank considered it, and your bank said no.
+A decline is almost never a transmission failure. The request reached your
+bank. Your bank considered it and said no.
 
 Sending the identical request again asks the same question of the same system
 and gets the same answer. Nothing about the second attempt is different: same
@@ -26,18 +26,17 @@ card, same amount, same merchant, same balance, same address. The only thing
 that has changed is that there are now two refusals on the record instead of
 one.
 
-The exception is **insufficient funds**, where the answer genuinely can change
-when money arrives. Even then, retrying before it has arrived is just another
-refusal.
+There is one exception. **Insufficient funds** can genuinely change once money
+lands. Retrying before it lands is just another refusal.
 
 ## Why repeated attempts actively hurt
 
 Banks watch the pattern of attempts, not just each individual one.
 
-A sequence of declined attempts against one card in a short window is the exact
-signature of someone testing a stolen card. Fraud systems are built to spot
-that pattern, and they cannot tell the difference between a thief probing and a
-customer who is frustrated and clicking again.
+Several declines against one card in a short window is the signature of someone
+testing a stolen card. Fraud systems are built to catch exactly that. They
+cannot tell a thief probing from a frustrated customer clicking again, and they
+are not designed to try.
 
 So the fraud system responds the way it is designed to:
 
@@ -50,7 +49,7 @@ until you call.
 **It may flag the merchant.** Enough declined attempts from one merchant, and
 some banks become cautious about that merchant for other customers too.
 
-The last one is why we care enough to write this page.
+That last one is why we bothered writing this page.
 
 ## What "do not honor" is really saying
 

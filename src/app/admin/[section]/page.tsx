@@ -71,6 +71,11 @@ const configs: Record<string, Config> = {
       },
       { key: "org", label: "Organization / context", type: "text" },
       { key: "period", label: "Period (e.g. Dec 2025 – Present)", type: "text" },
+      {
+        key: "role",
+        label: "My role (what you personally owned)",
+        type: "textarea",
+      },
       { key: "stack", label: "Tools and standards used", type: "tags" },
       { key: "problem", label: "Problem", type: "textarea" },
       { key: "insight", label: "Insight", type: "textarea" },

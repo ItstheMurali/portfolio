@@ -1,5 +1,5 @@
-Most people reach this page in the middle of a problem, not at the start of a
-reading session. So this page is a signpost, not an introduction.
+Most people reach this page mid-problem, not at the start of a reading session.
+So it is a signpost, not an introduction.
 
 **Pick the thing that is happening to you.**
 
@@ -40,8 +40,8 @@ one attempt succeeds. A failed attempt does not cancel the invoice and does not
 mean you owe less.
 
 **A declined payment is not a charge.** No money moves. You may still see a
-pending authorization on your statement for a few days; your bank releases it
-on its own schedule, and we cannot make that happen faster.
+pending authorization on your statement for a few days. Your bank releases
+those on its own schedule and we cannot hurry it.
 
 **Refunds go back to the card that paid.** Always. We cannot redirect a refund
 to a different card or to a bank account, because the refund travels back along

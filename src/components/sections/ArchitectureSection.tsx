@@ -266,6 +266,15 @@ function CaseCard({ cs, index }: { cs: CaseStudy; index: number }) {
         </dl>
         <p className="mt-6 font-mono text-sm text-clarity">{cs.impact}</p>
 
+        {cs.role && (
+          <p className="mt-4 font-fraunces text-[13px] leading-[1.7] text-human/55">
+            <span className="font-mono text-[10px] uppercase tracking-[0.08em] text-pen/60">
+              My role ·{" "}
+            </span>
+            {cs.role}
+          </p>
+        )}
+
         {cs.stack && cs.stack.length > 0 && (
           <p className="mt-4 font-mono text-[10px] leading-relaxed text-human/35">
             {cs.stack.join("  ·  ")}

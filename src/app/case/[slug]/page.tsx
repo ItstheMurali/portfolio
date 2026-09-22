@@ -64,6 +64,19 @@ export default async function CasePage({ params }: Props) {
 
         <p className="mt-6 font-mono text-sm text-clarity">{cs.impact}</p>
 
+        {/* Which parts were this person's. Asked in every interview, and
+            missing from most portfolio case studies. */}
+        {cs.role && (
+          <div className="mt-8 border-l-2 border-pen/40 pl-4">
+            <span className="label font-mono text-[10px] text-pen/70">
+              My role
+            </span>
+            <p className="mt-1.5 font-fraunces text-[15px] leading-[1.75] text-human/80">
+              {cs.role}
+            </p>
+          </div>
+        )}
+
         {cs.stack && cs.stack.length > 0 && (
           <p className="mt-4 font-mono text-[11px] leading-relaxed text-human/40">
             {cs.stack.join("  ·  ")}

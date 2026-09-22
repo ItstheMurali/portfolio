@@ -43,6 +43,9 @@ export interface CaseStudy {
   org?: string;
   /** Period, e.g. "Dec 2025 – Present". */
   period?: string;
+  /** What this person personally owned. The first thing an interviewer asks
+      about a case study is which parts were theirs. */
+  role?: string;
   /** Tools and standards actually used, shown as a row on the card. */
   stack?: string[];
   featured?: boolean;
@@ -118,7 +121,7 @@ export const defaultIdentity: Identity = {
     "Open for opportunities and collaborations in AI and Technical Writing",
   email: "muralikrishna0293@gmail.com",
   linkedin: "https://linkedin.com/in/murali-krishna66",
-  resume_url: "/murali-krishna-resume.pdf",
+  resume_url: "/Murali_Krishna_Resume.pdf",
   open_for: [
     "Senior Technical Writer roles",
     "Information Architecture projects",
@@ -141,7 +144,8 @@ export const defaultCases: CaseStudy[] = [
     title: "Cloud Workload Automation API Ecosystem",
     domain: "API Documentation",
     org: "API documentation writer",
-    period: "May 2026 – Present",
+    period: "May 2023 – Sep 2024",
+    role: "Sole documentation owner for the API surface, working directly with the platform engineers who owned the SAP and Docker integration paths.",
     stack: [
       "REST APIs",
       "OpenAPI",
@@ -174,6 +178,7 @@ export const defaultCases: CaseStudy[] = [
     domain: "Workflow Automation",
     org: "Automation lead",
     period: "Dec 2025 – Present",
+    role: "Built the sync engine end to end, then led the rollout across a 25+ person matrix team split between the US and Manila.",
     stack: [
       "JavaScript",
       "Google Apps Script",
@@ -203,6 +208,7 @@ export const defaultCases: CaseStudy[] = [
     domain: "Information Architecture",
     org: "Google Operations Center",
     period: "Oct 2024 – Present",
+    role: "Designed the user research, set the portfolio-level content strategy, and authored and governed 300+ assets in GitLab.",
     stack: ["HTML", "CSS", "GitLab", "Markdown", "XML", "MadCap Flare"],
     problem:
       "250+ country selectors, each treated as its own content problem, with no portfolio-level view of what differed and why.",
@@ -227,6 +233,7 @@ export const defaultCases: CaseStudy[] = [
     domain: "Docs-as-Code",
     org: "Docs-as-Code workflow architect",
     period: "Nov 2025 – Jan 2026",
+    role: "Designed the migration and the validation pipeline, mapped the XML semantics, and set the conventions the corpus still runs on.",
     stack: ["Git", "Markdown", "Markdownlint", "CSpell", "XML", "MadCap Flare"],
     problem:
       "150+ legacy XML manuals in a publishing chain slower than the products they described.",
@@ -251,6 +258,7 @@ export const defaultCases: CaseStudy[] = [
     domain: "Structured Authoring",
     org: "Cyient",
     period: "Dec 2020 – Apr 2023",
+    role: "Ran the publishing lifecycle for the manual set and built the single-sourcing architecture in DITA and Arbortext Editor.",
     stack: [
       "DITA",
       "Arbortext Editor",
