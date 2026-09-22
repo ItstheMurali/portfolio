@@ -143,7 +143,7 @@ export const defaultCases: CaseStudy[] = [
     slug: "workload-automation-api",
     title: "Cloud Workload Automation API Ecosystem",
     domain: "API Documentation",
-    org: "API documentation writer",
+    org: "Randstad (deputed to Accenture)",
     period: "May 2023 – Sep 2024",
     role: "Sole documentation owner for the API surface, working directly with the platform engineers who owned the SAP and Docker integration paths.",
     stack: [
@@ -478,7 +478,7 @@ export const defaultWorkCategories: WorkCategory[] = [
     description:
       "Developer-facing API guides, endpoint documentation, authentication schemas, error state documentation. Designed to reduce support queries and accelerate integration.",
     details:
-      "An API reference is a contract. Every endpoint, every error code, every field is a promise a developer will build against at 2am with no one to ask. I write that contract spec-first: the OpenAPI description is the source of truth, the published reference is generated from it, and the two cannot drift.\n\nOn the Cloud Workload Automation API ecosystem I documented 40+ REST endpoints and the Python SDK guides through a Docs-as-Code pipeline, delivering a complete reference set inside a four-week sprint. The measurable win came from the integration seams, not the endpoints: documenting the SAP webhook and Docker integration paths alongside engineers cut third-party pipeline configuration defects by 40%.\n\nThe two pieces below are demonstrations built for this portfolio, not client work. They exist because API documentation is best judged on a complete system you can open: the specification, the ruleset that governs it, the error taxonomy, and the decisions recorded with the alternatives that were rejected.",
+      "An API reference is a contract. Every endpoint, every error code, every field is a promise a developer will build against at 2am with no one to ask. I write that contract spec-first: the OpenAPI description is the source of truth, the published reference is generated from it, and the two cannot drift.\n\nOn the Cloud Workload Automation API ecosystem I documented 40+ REST endpoints and the Python SDK guides through a Docs-as-Code pipeline, delivering a complete reference set inside a four-week sprint. The measurable win came from the integration seams, not the endpoints: documenting the SAP webhook and Docker integration paths alongside engineers cut third-party pipeline configuration defects by 40%.\n\nThe API documentation I have shipped belongs to the clients who commissioned it and is covered by NDA, so the two pieces below are demonstrations built for this portfolio instead. They exist because API documentation is best judged on a complete system you can open: the specification, the ruleset that governs it, the error taxonomy, and the decisions recorded with the alternatives that were rejected.",
     impact:
       "40+ REST endpoints · Python SDK · 40% fewer integration defects (Cloud Workload Automation)",
     samples_label: "Two demonstration pieces",

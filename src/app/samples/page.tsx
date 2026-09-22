@@ -24,6 +24,18 @@ export default function SamplesIndexPage() {
           others it is structurally bound to. Documentation is judged as a
           system, so it is shown as one.
         </p>
+        <p className="mt-5 font-fraunces text-[15px] leading-[1.8] text-human/55">
+          Where the work I shipped is public it is linked directly, as with the
+          Google Ads Help Center articles on the{" "}
+          <Link
+            href="/work#user-documentation"
+            className="text-pen underline decoration-pen/35 underline-offset-4 transition-colors hover:decoration-pen"
+          >
+            work page
+          </Link>
+          . The rest is client documentation under NDA, so what follows is built
+          to the same standard on invented products.
+        </p>
 
         <ul className="mt-16 space-y-5">
           {sampleSets.map((set) => (

@@ -58,7 +58,8 @@ export default async function CasePage({ params }: Props) {
         {/* A demonstration piece must never be mistaken for client work. */}
         {cs.kind === "sample" && (
           <p className="mt-4 inline-block rounded border border-pen/25 px-3 py-1.5 font-mono text-[10px] text-pen/80">
-            Portfolio demonstration piece, built to show the standard
+            Demonstration piece. Shipped client documentation is under NDA, so
+            this was built to the same standard instead.
           </p>
         )}
 
