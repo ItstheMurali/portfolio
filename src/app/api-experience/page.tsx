@@ -14,8 +14,8 @@ export const metadata: Metadata = {
 const philosophy = [
   "Most API documentation is written from the inside out: here is what we built, here are its parameters. Developers read it from the outside in: here is what I am trying to do, show me the shortest safe path. My documentation is structured for the second reader.",
   "That means every endpoint answers four questions in order: what does this do, what do I send, what comes back, and what happens when it fails. The last question is the one most documentation skips, and it is the one that costs the most support tickets. A developer who can diagnose a 401 from the docs alone never opens a ticket at all.",
-  "It also means writing two registers of the same truth. The technical view carries the exact contract: schemas, types, status codes. The human view carries the intent: what this is for, when to reach for it, what to check first. The demo below shows both, toggle between them.",
-  "This endpoint is fictional. The standards are not: they are the ones I applied documenting 40+ REST endpoints and the Python SDK for a cloud workload automation platform, where the SAP and Docker integration paths were where the defects actually lived.",
+  "It also means the same fact frequently has to be written twice. A declined payment is one event. The developer branching on it needs a stable code and a retry rule; the merchant whose card was refused needs to know their money is safe and who to call. Writing one of those and handing it to the other is the most common failure in payments documentation, and it is usually the developer copy that leaks. Toggle the demo below to see the same decline in both registers.",
+  "The operation shown is a real one from the Ledger API, a specification I published in full as a demonstration piece, so the request, the response and the error bodies match the spec and the error reference exactly. The standards behind it are the ones I applied documenting 40+ REST endpoints and the Python SDK for a cloud workload automation platform, where the SAP and Docker integration paths turned out to be where the defects lived.",
 ];
 
 export default async function ApiExperiencePage() {
@@ -45,7 +45,7 @@ export default async function ApiExperiencePage() {
 
       {/* the working interactive demo, same component as the portfolio */}
       <ApiDemoSection
-        heading="The demo: one endpoint, documented completely."
+        heading="One declined payment, written for two readers."
         closing={copy.apiClosing}
       />
     </SubPageShell>
