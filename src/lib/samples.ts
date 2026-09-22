@@ -51,14 +51,14 @@ export const sampleSets: SampleSet[] = [
     title: "Ledger API",
     kicker: "Spec-first API reference · billing",
     teaser:
-      "The specification governs itself: 25 rules that fail the build rather than filing a warning nobody reads.",
+      "Twenty-five governance rules run in CI, and a specification that breaks one of them does not merge.",
     summary:
       "A complete billing API documentation system: invoices, payments, and refunds, specified in OpenAPI 3.1.1 and governed by a ruleset that fails the build. Reference-first, written for an integrator who is moving money and cannot afford an ambiguity.",
     craft: [
-      "Every operation documents its 401, 429, and 500, enforced by a lint rule rather than by reviewer diligence.",
-      "The error reference gives one cause and one fix per entry, because a page listing six possible causes has handed the diagnosis back to the reader.",
+      "Every operation documents its 401, 429, and 500. A lint rule enforces that, so no reviewer has to remember it.",
+      "One cause and one fix per error entry. A page that lists six possible causes has handed the diagnosis back to the reader.",
       "Eleven design decisions are recorded with the alternative that was rejected and the cost of the choice that won.",
-      "A wrong RFC citation found during verification is recorded in the decision log rather than quietly corrected.",
+      "A wrong RFC citation, caught during verification, is logged in the decision record instead of quietly deleted.",
     ],
     standards: ["OpenAPI 3.1.1", "RFC 9457", "RFC 9110", "RFC 6901"],
     caseSlug: "ledger-api",
@@ -88,10 +88,10 @@ export const sampleSets: SampleSet[] = [
     summary:
       "Documentation for an extraction API that returns confidence scores instead of certainties. Where the Ledger API is reference-first for a reader who knows what they want, this is tutorial-first for a reader who does not yet know what the system can and cannot promise.",
     craft: [
-      "Documents a probabilistic API honestly: the quickstart shows a wrong answer in its second example, before the reader has built anything on the assumption of correctness.",
-      "Replaces the usual confidence-score table with a decision procedure, because a number the reader cannot act on is decoration.",
+      "The quickstart's second example comes back wrong, on purpose, while the reader is still deciding how much to rely on the output.",
+      "Turns confidence scores into a routing decision, because a number the reader cannot act on is decoration.",
       "Separates the three failure classes that look identical in the response body: the document was bad, the extraction was wrong, and the request was wrong.",
-      "The reference excerpt is deliberately narrow, to show the register shift from teaching voice to contract voice within one product.",
+      "One narrow reference page sits beside the tutorial, to show the register shift from teaching voice to contract voice inside one product.",
     ],
     standards: ["Diátaxis", "OpenAPI 3.1", "RFC 9457"],
     caseSlug: "sift-api",
@@ -124,7 +124,7 @@ export const sampleSets: SampleSet[] = [
     title: "Ledger API release notes",
     kicker: "Release communication · versioning and migration",
     teaser:
-      "A breaking change written so a team can plan around it rather than discover it.",
+      "A breaking change written for the person who has to schedule the upgrade.",
     summary:
       "Three consecutive releases of the Ledger API, including one breaking change with a full migration path. Written to the versioning policy the API specification itself publishes, so the notes and the contract agree.",
     craft: [
@@ -160,9 +160,9 @@ export const sampleSets: SampleSet[] = [
     summary:
       "A four-article knowledge base covering one painful problem from four angles: orientation, task, reference, and explanation. Written for the merchant whose payment just failed, using the same underlying facts the Ledger API states to engineers.",
     craft: [
-      "The hub is built for arrival from search rather than from the top, because almost nobody reaches a help center through its front door.",
+      "The hub assumes arrival from a search result, part-way in, which is how nearly everyone reaches a help center.",
       "The same decline reasons appear here and in the Ledger error reference, in two registers: one for a person whose card was refused, one for the service that has to branch on it.",
-      "The retry article exists to stop a specific harmful behavior, so it leads with the consequence rather than the mechanism.",
+      "The retry article exists to stop a harmful habit, so it opens with what the habit costs the reader, before any explanation of why.",
       "Every article names the one thing to do next, because a help article that ends without an action has returned the problem unopened.",
     ],
     standards: ["Diátaxis", "Task-first structure", "Plain language"],
@@ -207,10 +207,10 @@ export const sampleSets: SampleSet[] = [
     summary:
       "An on-premises installation and maintenance manual written with aerospace documentation discipline: controlled vocabulary, a formal warning hierarchy, one action per step, and verification built into every task. The structured-authoring habits of S1000D and iSpec 2200, applied to software.",
     craft: [
-      "A formal WARNING / CAUTION / NOTE hierarchy with a stated definition for each, placed before the step rather than after it, because a warning read afterwards is a post-mortem.",
+      "A formal WARNING / CAUTION / NOTE hierarchy, each level defined in writing, every notice placed before the step it governs. A warning read afterwards is a post-mortem.",
       "One action per numbered step, present tense, no ambiguous pronouns, following ASD-STE100 writing rules that are listed explicitly so a reviewer can check compliance.",
       "Every task ends with a verification step and a stated expected result, so the reader knows whether it worked without asking.",
-      "A troubleshooting section built as a symptom-to-cause decision path rather than an alphabetical list of error messages.",
+      "Troubleshooting organized by observed symptom, with probable causes ordered by how often each one turns out to be the answer.",
     ],
     standards: ["ASD-STE100", "S1000D (informed)", "iSpec 2200 (informed)"],
     caseSlug: "orchestrator-manual",
@@ -248,9 +248,9 @@ export const sampleSets: SampleSet[] = [
       "A Vale ruleset and CI pipeline that enforces editorial standards on prose the way a linter enforces them on code. Every rule names the defect it prevents, and a closing section names the rules that were deliberately not written.",
     craft: [
       "Each rule carries the defect it prevents, so a writer who trips it learns the standard instead of just satisfying the tool.",
-      "Severity is used as a real signal: errors block the merge, warnings do not, and the split is defended rather than assumed.",
+      "Severity carries weight: errors block the merge, warnings do not, and the page defends where it drew that line.",
       "The pipeline reports on the pull request with file and line, because a CI failure a writer cannot locate is a CI failure they will route around.",
-      "A section on rules deliberately not automated, because over-linting prose teaches writers to fight the tool rather than to write well.",
+      "A section on the rules deliberately left out. A linter that flags too much teaches writers to game it.",
     ],
     standards: ["Vale", "GitHub Actions", "Google developer documentation style"],
     caseSlug: "docs-governance",
