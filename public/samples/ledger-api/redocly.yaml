@@ -139,7 +139,11 @@ rules:
       number/float/double.
 
   # ── Documented-by-default schemas ────────────────────────────────────────
-  rule/named-schemas-have-descriptions:
+  # Named for descriptions in an earlier draft, which is not what it
+  # asserts. Verified by injecting a missing description: this rule stayed
+  # quiet and the built-in parameter-description caught it. Renamed rather
+  # than left to imply a check it does not perform.
+  rule/named-schemas-are-defined:
     subject:
       type: NamedSchemas
     assertions:

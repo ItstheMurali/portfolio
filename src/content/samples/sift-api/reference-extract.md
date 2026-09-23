@@ -56,6 +56,7 @@ header carries the canonical URL of the extraction.
 | Field | Type | Description |
 |---|---|---|
 | `id` | string | Opaque identifier, prefixed `ext_`. |
+| `object` | string | Always `extraction`. Present so a heterogeneous collection or a webhook payload can be dispatched without inspecting the URL it arrived from. |
 | `status` | enum | `processing`, `succeeded`, or `failed`. `succeeded` means the extraction completed, **not** that the values are correct. |
 | `schema` | string | The schema the document was extracted against. |
 | `schema_match` | number | 0.0–1.0. How well the document matches the requested schema. Present only when `status` is `succeeded`. A value below 0.5 usually means the wrong schema was requested. |
@@ -63,6 +64,7 @@ header carries the canonical URL of the extraction.
 | `document` | object | Source document properties, including `quality`. |
 | `pages` | integer | Page count of the source document. |
 | `failure_code` | string \| null | Populated only when `status` is `failed`. See [Failure codes](#failure-codes). |
+| `created_at` | string | RFC 3339 timestamp, UTC. When the extraction was accepted. |
 | `completed_at` | string \| null | RFC 3339 timestamp, UTC. `null` while processing. |
 
 ### Field

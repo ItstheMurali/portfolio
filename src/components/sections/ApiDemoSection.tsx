@@ -24,6 +24,7 @@ Content-Type: application/json
 }`;
 
 const responseText = `HTTP/1.1 201 Created
+Location: /v1/payments/pay_3MvB9kLd7Q
 
 {
   "id": "pay_3MvB9kLd7Q",
@@ -31,7 +32,10 @@ const responseText = `HTTP/1.1 201 Created
   "status": "failed",
   "invoice_id": "inv_7TgH2ReQvA",
   "amount": { "amount": 5520000, "currency": "INR" },
+  "amount_refunded": { "amount": 0, "currency": "INR" },
+  "amount_refund_pending": { "amount": 0, "currency": "INR" },
   "failure_code": "do_not_honor",
+  "failure_message": "Issuer declined without a stated reason.",
   "created_at": "2026-09-01T14:32:07Z"
 }`;
 
@@ -212,10 +216,18 @@ export default function ApiDemoSection({
                     make the next one more likely to be refused.
                   </p>
                   <p className="text-human/50">
-                    Same event, same underlying fact. The developer needs a
-                    stable code to branch on; the merchant needs to know their
-                    money is safe and what to do next. Never show them the
-                    developer copy.
+                    Same event, same underlying fact. Note what is not here:{" "}
+                    <code className="font-mono text-xs text-clarity">
+                      failure_message
+                    </code>
+                    , the string in the response above, is written in English
+                    for your support staff and its wording is not part of the
+                    contract. Showing it to the payer is the most common way
+                    this goes wrong. Branch on{" "}
+                    <code className="font-mono text-xs text-clarity">
+                      failure_code
+                    </code>{" "}
+                    and map it to your own localized copy.
                   </p>
                 </div>
               )}

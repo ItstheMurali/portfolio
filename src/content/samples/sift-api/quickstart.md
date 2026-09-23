@@ -81,6 +81,8 @@ curl https://api.sandbox.sift.dev/v1/extractions/ext_4Kd2PqL4vN \
       "page": 1
     }
   },
+  "schema_match": 0.98,
+  "document": { "quality": { "score": 0.97, "issues": [] } },
   "pages": 2,
   "completed_at": "2026-09-01T14:32:09Z"
 }
@@ -147,6 +149,8 @@ The result:
       "page": 1
     }
   },
+  "schema_match": 0.95,
+  "document": { "quality": { "score": 0.58, "issues": ["blur", "skew"] } },
   "pages": 1,
   "completed_at": "2026-09-01T14:35:11Z"
 }
@@ -182,6 +186,10 @@ about two seconds, because they can see both candidates side by side.
 `purchased_at` shows the third case: `value` is `null` and confidence is exactly
 `0.0`. That is not low confidence, it is absence. The field was not found. Do
 not treat `0.0` as a weak reading of something; treat it as nothing to read.
+
+And look at `document.quality`. The score is 0.58 with `blur` and `skew`
+flagged, against 0.97 and no issues on the clean invoice. The API told you the
+capture was poor before you looked at a single field.
 
 ## What you should do with this
 

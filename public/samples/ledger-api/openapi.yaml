@@ -969,6 +969,29 @@ components:
             - 'null'
           format: date-time
           description: When the invoice was voided. `null` unless `status` is `void`.
+        void_reason:
+          type:
+            - string
+            - 'null'
+          enum:
+            - duplicate
+            - fraudulent
+            - issued_in_error
+            - other
+            - null
+          description: |
+            The reason supplied to `voidInvoice`, carried on the invoice so an
+            audit does not have to be correlated against the webhook payload.
+            `null` unless `status` is `void`. Added in release 2026-06-15.
+        amount_due:
+          $ref: '#/components/schemas/Money'
+          deprecated: true
+          description: |
+            **Deprecated.** Identical in value to `amount_remaining`, which
+            supersedes it. Two names for one number is an ambiguity this
+            reference cannot resolve by explaining it, so one is going away.
+            Populated in every release up to and including the first dated
+            release after 2027-06-15, then removed. Deprecated in 2026-06-15.
       additionalProperties: false
 
     InvoiceCreateRequest:
@@ -1089,6 +1112,7 @@ components:
         - invoice_id
         - amount
         - amount_refunded
+        - amount_refund_pending
         - created_at
       properties:
         id:
@@ -1107,6 +1131,18 @@ components:
           $ref: '#/components/schemas/Money'
         amount_refunded:
           $ref: '#/components/schemas/Money'
+          description: |
+            The total of refunds against this payment that have settled. From
+            release 2026-09-01 this counts only `succeeded` refunds; it
+            previously included refunds still in flight, which made headroom
+            look consumed before it was.
+        amount_refund_pending:
+          $ref: '#/components/schemas/Money'
+          description: |
+            The total of refunds against this payment that are still
+            `processing`. Available refund headroom is
+            `amount - amount_refunded - amount_refund_pending`. Added in
+            release 2026-09-01; see the migration guide.
         failure_code:
           type:
             - string
@@ -1195,6 +1231,16 @@ components:
         created_at:
           type: string
           format: date-time
+        settled_at:
+          type:
+            - string
+            - 'null'
+          format: date-time
+          description: |
+            When the refund reached a terminal state, distinct from
+            `created_at`. `null` while `processing`. Reconciliation should
+            align refunds to this value rather than to request time. Added in
+            release 2026-09-01.
       additionalProperties: false
 
     RefundCreateRequest:

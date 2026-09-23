@@ -77,9 +77,10 @@ This project:
 - `rule/every-operation-documents-401`: All endpoints document auth errors
 - `rule/every-operation-documents-429`: All endpoints document rate limits
 - `rule/summary-is-not-a-sentence`: One-line, no periods
-- And 5 more...
+- `rule/named-schemas-are-defined`: Every component schema resolves
+- And 4 more...
 
-**Negative Test**: 4 defects deliberately injected. All 4 caught. ✓
+**Negative Test**: 4 defects deliberately injected. All 4 caught, each by a named rule. ✓
 
 ### 2. Error Taxonomy (15 Codes)
 
@@ -311,7 +312,7 @@ The ruleset is tested against a spec with 4 deliberately injected defects:
 1. **Float on amount** → Caught by `rule/no-floating-point-money`
 2. **Undocumented 401** → Caught by `rule/every-operation-documents-401`
 3. **Bad operation name** (`Get_Invoice`) → Caught by `rule/operationid-is-camel-case`
-4. **Missing description** → Caught by `rule/named-schemas-have-descriptions`
+4. **Missing parameter description** → Caught by `parameter-description`
 
 **Result: All 4 caught. ✓**
 
